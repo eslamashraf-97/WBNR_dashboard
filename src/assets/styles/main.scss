@@ -1,0 +1,83 @@
+@import './taillwind';
+@import './primevue-reset';
+@import './transitions';
+@import './mixins';
+@import "./fonts";
+
+i {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+nav a,
+nav a:hover {
+	text-decoration: none !important;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+input[type='number'] {
+	-moz-appearance: textfield;
+}
+
+.text-successful,
+.text-Successful,
+.text-success {
+	color: green;
+}
+.text-failed,
+.text-Failed {
+	color: red;
+}
+.text-pending,
+.text-Pending {
+	color: theme('colors.gray.700');
+}
+.router-link-active {
+	@apply bg-primary-300 rounded-main text-white;
+}
+.router-link-active svg, .router-link-active svg path {
+	fill: #ffffff;
+	//stroke: #ffffff;
+}
+.overlay {
+	@include overlay(rgba(255, 255, 255, 0.4), 1);
+}
+
+[dir='rtl'] {
+	nav i {
+		transform: rotateY(180deg);
+	}
+	//.router-link-active {
+	//	@apply bg-primary-400 text-white;
+	//}
+}
+.no-underline:hover{
+	text-decoration: none !important;
+}
+.p-divider-solid.p-divider-horizontal:before {
+	border-top-style: solid !important;
+}
+.auth-tab .p-tabmenuitem {
+	width: 50% !important;
+	text-align: center !important;
+}
+.auth-tab.p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link{
+	display: flex;
+	justify-content: center;
+	border-bottom-width: 3px !important;
+}
+.auth-tab.p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link .p-menuitem-text {
+	font-weight: bold;
+}
+a:hover {
+	text-decoration: none !important
+}
+.p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+	box-shadow: none !important;
+}
+.p-tabview-nav-link {
+	font-weight: 500 !important;
+}

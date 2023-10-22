@@ -1,0 +1,28 @@
+version: '3.9'
+services:
+  admin:
+    container_name: '${APP_NAME:-emm_saas}_admin'
+    restart: always
+    #    env_file:
+    #      - ./docker/production/.env
+    build:
+      context: ./
+      dockerfile: ./docker/production/Dockerfile
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    ports:
+      - '${DOCKER_APP_PORT:-80}:80'
+    environment:
+      NODE_ENV: 'production'
+    # network_mode: host
+    networks:
+      - emm_saas
+
+networks:
+  emm_saas:
+    driver: bridge
+
+volumes:
+  emm_saas-admin:
+    driver: local

@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	h1 {
+		font-size: 2.5rem; // 40px
+	}
+
+	h2 {
+		font-size: 2.25rem; // 36px
+	}
+
+	h3 {
+		font-size: 2rem; // 32px
+	}
+
+	h4 {
+		font-size: 1.75rem; // 28px
+	}
+
+	h5 {
+		font-size: 1.5rem; // 24px
+	}
+
+	h6 {
+		font-size: 1.25rem; // 20px
+		font-weight: 600;
+	}
+
+	a {
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline !important;
+		}
+	}
+
+	label {
+		font-size: 0.813rem; // 13px
+		@apply block text-gray-500 pb-1;
+	}
+
+	// for loop to generate fonts sizes from 10 to 18 px
+	@for $i from 9 through 18 {
+		.font-#{$i} {
+			font-size: #{$i}px;
+		}
+	}
+}
+
+@layer utilities {
+	.flex-center {
+		@apply flex items-center justify-center;
+	}
+
+	.form-group {
+		@apply flex flex-col mb-4;
+	}
+}
+@for $i from 1 through 12 {
+	.col-span-#{$i} {
+		grid-column: span #{$i} / span #{$i};
+	}
+}
