@@ -37,13 +37,13 @@
 			<section
 				:class="'hover:cursor-pointer lg:block group px-4 py-0 pb-3 text-base font-medium hidden'"
 			>
-        <div class="bg-primary/10 p-4 rounded-main">
+        <div class="bg-primary-300/10 p-4 rounded-main">
           <p class="text-primary text-center text-sm mb-4">
-            إشتري تأمينك دلوقتي وإستمتع بأفضل الأسعار
+            إضافة منتج جديد الان
           </p>
-          <img src="@/assets/images/dashboard.png" class="m-auto"/>
+          <img src="@/assets/images/dashboard.png" class="m-auto w-[50%]"/>
           <div class="flex justify-center mt-4">
-            <app-button submit-title="إشتري الأن" class="rounded-[5px]" class-content="px-8 py-1 text-sm"></app-button>
+            <app-button submit-title="إضافة منتج جديد" class="rounded-[5px]" class-content="px-8 py-1 text-sm"></app-button>
           </div>
         </div>
         <div class="mt-4 border-t border-dashed border-gray-secondary pt-4">

@@ -1,19 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import dashboardLayout from "@/layouts/dashboard/Index.vue";
 import authLayout from "@/layouts/AuthLayout.vue";
-// import index from "@/views/index.vue";
+
 import authRoutes from "@/modules/auth/auth.routes";
 import dashboardRoutes from '@/modules/dashboard/dashboard.routes';
-import healthInsuranceRoutes from "@modules/healthInsuranceDocuments/healthInsurance.routes";
-import carInsuranceRoutes from "@modules/carInsuranceDocuments/carInsurance.routes";
-import savedCarRoutes from "@modules/savedCar/savedCar.routes";
-import familyRoutes from "@modules/family/family.routes";
-import settingsRoutes from "@modules/settings/settings.routes";
-
 import productRoutes from "@/modules/products/product.routes";
 import categoryRoutes from "@/modules/category/category.routes";
 import countryRoutes from "@/modules/country/country.routes";
 import governorateRoutes from "@/modules/governorates/governorate.routes";
+import customerRoutes from "@/modules/customers/customer.routes";
+import employeeRoutes from "@/modules/employee/employee.routes";
+import orderRoutes from "@/modules/orders/order.routes";
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,15 +25,13 @@ const router = createRouter({
 			component: dashboardLayout,
 			children: [
 				...dashboardRoutes,
-				...healthInsuranceRoutes,
-				...carInsuranceRoutes,
-				...savedCarRoutes,
-				...familyRoutes,
-				...settingsRoutes,
 				...productRoutes,
 				...categoryRoutes,
 				...countryRoutes,
-				...governorateRoutes
+				...governorateRoutes,
+				...customerRoutes,
+				...employeeRoutes,
+				...orderRoutes
 			],
 			meta: {
 				requireAuth: true,

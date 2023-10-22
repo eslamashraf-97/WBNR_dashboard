@@ -81,3 +81,19 @@ a:hover {
 .p-tabview-nav-link {
 	font-weight: 500 !important;
 }
+// status
+$status-list:(
+	active: theme('colors.primary.300'),
+	confirmed: theme('colors.primary.300'),
+
+	pending:#444444,
+
+	deactive:red,
+	canceled:red,
+);
+@each $key,$val in $status-list{
+	.status--#{$key} {
+		color: #{$val};
+		font-weight: 500;
+	}
+}

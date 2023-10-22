@@ -1,7 +1,7 @@
 import index from './pages/index.vue';
 
 export default [{
-    name: 'savedCar',
-    path: '/saved-car',
+    name: 'customers',
+    path: '/customers',
     component: index
 }]
