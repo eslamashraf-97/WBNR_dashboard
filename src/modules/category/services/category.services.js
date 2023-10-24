@@ -1,5 +1,8 @@
 import { api } from '@/axios';
 export default {
+    getAllCategory () {
+        return api().get('admin/product-category/row')
+    },
     createCategory (payload) {
         return api().post('admin/product-category', payload)
     },

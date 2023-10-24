@@ -4,6 +4,7 @@ import roles from './pages/roles.vue';
 
 export default [{
     path: '/employee',
+    name: 'employee-routes',
     redirect: '/employee/users',
     component: index,
     children: [

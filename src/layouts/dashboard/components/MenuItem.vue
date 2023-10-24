@@ -1,4 +1,7 @@
 <template>
+  <Dialog v-model:visible="visible" maximizable  modal :header="'إضافة منتج'" :style="{ width: '50vw' }">
+    <productDetails @finish="visible = false" :details="{}"/>
+  </Dialog>
 	<div class="flex min-h-0 flex-1 flex-col">
 		<div class="flex flex-1 flex-col overflow-y-auto pt-4 px-2">
       <div class="profile px-3 flex gap-2 items-center py-2 border-b">
@@ -22,6 +25,7 @@
           <router-link
               :to="{name: item.routeName}"
               :class="'hover:cursor-pointer block text-secondary group py-3 px-4 mb-3'"
+              v-if="$hasPer(item.permission)"
           >
             <div class="flex justify-between">
               <span class="flex gap-2 items-center">
@@ -43,11 +47,11 @@
           </p>
           <img src="@/assets/images/dashboard.png" class="m-auto w-[50%]"/>
           <div class="flex justify-center mt-4">
-            <app-button submit-title="إضافة منتج جديد" class="rounded-[5px]" class-content="px-8 py-1 text-sm"></app-button>
+            <app-button submit-title="إضافة منتج جديد" class="rounded-[5px]" class-content="px-8 py-1 text-sm" @click="visible = true"></app-button>
           </div>
         </div>
         <div class="mt-4 border-t border-dashed border-gray-secondary pt-4">
-          <app-button submit-title="تسجيل الخروج" class-content="rounded-lg w-full py-2 bg-white text-sm !text-secondary border border-mutedColor">
+          <app-button @click="logout" submit-title="تسجيل الخروج" class-content="rounded-lg w-full py-2 bg-white text-sm !text-gray-700 border border-mutedColor">
             <template v-slot:icon>
               <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
                 <path d="M4.69141 1.73077V0.5H15.7683V14.0385M4.69141 11.5769V14.0385H10.8453" stroke="#737373" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -61,7 +65,18 @@
 	</div>
 </template>
 <script setup>
-import sidebar from '@/fakeData/sidebar';
+import sidebar from '@/fakeData/sidebar'
+import productDetails from '@/modules/products/components/ProductDetails.vue'
+import {ref} from "vue"
+import {useRouter} from "vue-router";
 
+const router = useRouter()
 const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+const visible = ref(false)
+function logout () {
+  localStorage.removeItem('access_token')
+  localStorage.removeItem('userInfo')
+  localStorage.removeItem('permissions')
+  router.push({name: 'signIn'})
+}
 </script>

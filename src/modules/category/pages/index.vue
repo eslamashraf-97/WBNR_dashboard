@@ -5,7 +5,7 @@
     </Dialog>
     <div class="flex justify-between items-center mb-10 border-b-2 pb-3">
       <h5 class="text-md mb-4">الاقسام</h5>
-      <app-button submit-title="إضف قسم مستوى اول" class="rounded-lg font-medium !py-3" @click="visible = true">
+      <app-button submit-title="إضف قسم مستوى اول" class="rounded-lg font-medium !py-3" @click="visible = true"  v-if="$hasPer('product_categories:create')">
         <template v-slot:icon>
           +
         </template>
@@ -64,6 +64,7 @@ const mainActions = [
   {
     text: 'تعديل',
     icon:'pi pi-pencil',
+    permission: 'product_categories:edit',
     action: (val) => {
       details.value = val
       visible.value = true
@@ -72,6 +73,7 @@ const mainActions = [
   {
     text: 'مسح',
     icon:'pi pi-trash',
+    permission: 'product_categories:force_delete',
     action: (val) => window.showDeleteModal({
       title: 'قسم',
       id: val.id,
@@ -91,6 +93,7 @@ const actions = [
   {
     text: 'أضافة قسم فرعى',
     icon:'pi pi-plus',
+    permission: 'product_categories:create',
     action: (val) => {
       visible.value = true
       selcetedCat.value = val

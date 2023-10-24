@@ -35,11 +35,11 @@ const columns = [
   {
     header: 'الضريبة %',
     field: 'taxPercentage'
-  },
-  {
-    header: 'متاح',
-    field: 'active'
   }
+  // {
+  //   header: 'متاح',
+  //   field: 'active'
+  // }
 ]
 
 const details = ref({})

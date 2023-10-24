@@ -55,6 +55,7 @@ const actions = [
   {
     text: 'تعديل',
     icon:'pi pi-pencil',
+    permission: 'users:edit',
     action: (val) => {
       details.value = val
       visible.value = true
@@ -62,6 +63,7 @@ const actions = [
   },
   {
     text: 'مسح',
+    permission: 'users:soft_remove',
     icon:'pi pi-trash',
     action: (val) => window.showDeleteModal({
       title: 'منتج',

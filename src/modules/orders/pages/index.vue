@@ -23,7 +23,7 @@
       </div>
     </Dialog>
     <Dialog v-model:visible="showOrderDetail" maximizable  modal :header="'تفاصيل الطلب'" :style="{ width: '50vw' }">
-      <main-table :show-actions="false" :list_data="orderDetails.orderItems" :columns="columnsProducts">
+      <main-table :show-actions="false" :loading-table="loadingTable" :list_data="orderDetails.orderItems" :columns="columnsProducts">
         <template v-slot:product="{data}">
           <div class="flex items-center gap-2 py-2">
             <Avatar :image="data.product.featured_image" size="large" shape="circle" />
@@ -50,7 +50,7 @@
       <h5 class="text-md mb-4">الطلبات</h5>
     </div>
 
-    <main-table :showActions="false" :list_url="'admin/orders'" :columns="columns">
+    <main-table :showActions="false" :loading-table="loadingTable" :list_url="'admin/orders'" :columns="columns">
       <template v-slot:orderItems="{data}">
         <p>{{data.orderItems.length}}</p>
       </template>
@@ -96,7 +96,7 @@
         </div>
       </template>
       <template v-slot:changeStatus="{data}">
-        <app-button class="border border-primary-300 !text-primary-300 !bg-white" submit-title="تفاصيل الطلب" @click="showOrderDetails(data)"/>
+        <app-button class="border border-primary-300 !text-primary-300 !bg-white" v-if="$hasPer('orders:update')" submit-title="تفاصيل الطلب" @click="showOrderDetails(data)"/>
       </template>
     </main-table>
 
@@ -176,8 +176,9 @@ const clientDetails = ref({})
 const orderDetails = ref({})
 const selected = ref()
 const loading = ref(false)
+const loadingTable = ref(false)
 
-const status = ['pending', 'inprocess',  'delivered', 'paid', 'returned', 'closed']
+const status = ['pending', 'confirmed',  'processing', 'cancelled', 'shipping', 'rejected', 'delivered']
 function showDetails(data) {
   showClientDetails.value = true
   clientDetails.value = data
@@ -187,11 +188,12 @@ function showOrderDetails(data) {
   orderDetails.value = data
   selected.value = data.status
 }
-
 function changeStatus () {
   loading.value = true
-  orderServices.changeStatus(orderDetails.value.id, selected.value).then(() => {
+  loadingTable.value = false
+  orderServices.changeStatus(orderDetails.value.id, {status: selected.value}).then(() => {
     showOrderDetail.value = false
+    loadingTable.value = true
   }).finally(() => {
     loading.value = false
   })

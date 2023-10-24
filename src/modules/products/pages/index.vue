@@ -5,7 +5,7 @@
     </Dialog>
     <div class="flex justify-between items-center mb-10 border-b-2 pb-3">
       <h5 class="text-md mb-4">المنتجات</h5>
-      <app-button submit-title="إضف منتج جديد" class="rounded-lg font-medium !py-3" @click="visible = true">
+      <app-button v-if="$hasPer('products:create')" submit-title="إضف منتج جديد" class="rounded-lg font-medium !py-3" @click="visible = true">
         <template v-slot:icon>
           +
         </template>
@@ -86,6 +86,7 @@ const actions = [
   {
     text: 'تعديل',
     icon:'pi pi-pencil',
+    permission: 'products:edit',
     action: (val) => {
       details.value = val
       visible.value = true
@@ -94,6 +95,7 @@ const actions = [
   {
     text: 'مسح',
     icon:'pi pi-trash',
+    permission: 'products:force_remove',
     action: (val) => window.showDeleteModal({
       title: 'منتج',
       id: val.id,

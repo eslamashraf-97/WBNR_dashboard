@@ -8,7 +8,7 @@
       <InputField type="text" validation="required|numeric" placeholder="الكمية" name="stock"/>
       <InputField type="text" validation="required|numeric" placeholder="اكثر قيمة عمولة" name="maxCommission"/>
       <InputField type="text" validation="required|numeric" placeholder="اقل قيمة عمولة" name="minCommission"/>
-      <MainSelect :options="[1,2,3,4,5,6]" name="category_id" validation="required" placeholder="اختر القسم"/>
+      <MainSelect :options="allCategories" name="category_id" validation="required" optionLabel="name" optionValue="id" placeholder="اختر القسم"/>
       <MainSelect :options="countries" name="country_id" optionLabel="name" optionValue="id"  validation="required" placeholder="اختر البلد"/>
       <div class="col-span-2 mb-6">
         <Upload name="featured_image" label="الصورة الرئيسية" @upload="uploadImage"/>
@@ -38,18 +38,25 @@ import MainTextarea from "@/components/global/formElements/MainTextarea.vue"
 import Upload from "@/components/global/formElements/Upload.vue"
 import productServices from "../services/product.services.js"
 import { useCountries } from "../../country/composables";
+import categoryServices from "@modules/category/services/category.services";
 
 const { countries } = useCountries()
 const props = defineProps(['details'])
 const emit = defineEmits(['finish'])
-
 
 let featured_image = props.details?.featured_image || ''
 let images = ref(props.details?.images || [{
   url: ''
 }])
 let loading = ref(false)
+const allCategories = ref([])
 
+function getAllCategory () {
+  categoryServices.getAllCategory().then(res => {
+    allCategories.value = res.data.data
+  })
+}
+getAllCategory()
 function addNewImage () {
   if(images.value[images.value.length - 1 ].url) {
     images.value.push(

@@ -1,7 +1,7 @@
 <template>
   <Box class="p-5">
     <div class="flex justify-between items-center mb-10 border-b-2 pb-3">
-      <h5 class="text-md mb-4">العملاء</h5>
+      <h5 class="text-md mb-4">المسوقيين</h5>
     </div>
 
     <main-table :showActions="false" :list_url="'admin/customers'" :columns="columns">

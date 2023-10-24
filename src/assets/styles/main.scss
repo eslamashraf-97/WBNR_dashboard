@@ -85,11 +85,13 @@ a:hover {
 $status-list:(
 	active: theme('colors.primary.300'),
 	confirmed: theme('colors.primary.300'),
-
+	delivered: theme('colors.primary.300'),
 	pending:#444444,
-
+	processing: orange,
+	shipping: orange,
 	deactive:red,
-	canceled:red,
+	rejected:red,
+	cancelled:red,
 );
 @each $key,$val in $status-list{
 	.status--#{$key} {

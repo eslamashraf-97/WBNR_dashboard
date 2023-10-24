@@ -44,6 +44,7 @@ function signIn() {
     localStorage.setItem('access_token', res.data.meta.token)
     authService.getInfo().then(response => {
       localStorage.setItem('userInfo', JSON.stringify(response.data.data))
+      localStorage.setItem('permissions', JSON.stringify(response.data.data.permissions.map(data => data.slug)))
     })
     router.push({name: 'index'})
   }).finally(() => loading.value = false)

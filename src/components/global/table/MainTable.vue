@@ -62,7 +62,7 @@
             <OverlayPanel :ref="el => {allRefs[slotProps.index] = el}" class="p-0 m-0">
               <ul>
                 <template v-for="(action, key) in actions" :key="key">
-                  <li class="p-2 font-semibold text-m text-text-200 flex items-center gap-2 transition-all duration-200 hover:px-3 hover:bg-secondary-400 cursor-pointer border-b !px-4"
+                  <li v-if="!action.permission || $hasPer(action.permission)" class="p-2 font-semibold text-m text-text-200 flex items-center gap-2 transition-all duration-200 hover:px-3 hover:bg-secondary-400 cursor-pointer border-b !px-4"
                       @click="action.action(slotProps.data)"
                   >
                     <i :class="action.icon"></i> {{ action.text }}

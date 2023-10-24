@@ -11,6 +11,7 @@ import governorateRoutes from "@/modules/governorates/governorate.routes";
 import customerRoutes from "@/modules/customers/customer.routes";
 import employeeRoutes from "@/modules/employee/employee.routes";
 import orderRoutes from "@/modules/orders/order.routes";
+import walletRoutes from "@modules/wallet/wallet.routes";
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,7 +32,8 @@ const router = createRouter({
 				...governorateRoutes,
 				...customerRoutes,
 				...employeeRoutes,
-				...orderRoutes
+				...orderRoutes,
+				...walletRoutes
 			],
 			meta: {
 				requireAuth: true,

@@ -4,8 +4,8 @@ export default {
             if (!permission) {
                 return true
             }
-            if(localStorage.getItem('userData')) {
-                return JSON.parse(localStorage.getItem('userData')).permissions.indexOf(permission) > -1;
+            if(localStorage.getItem('permissions')) {
+                return JSON.parse(localStorage.getItem('permissions')).indexOf(permission) > -1;
             } return false
         }
     }

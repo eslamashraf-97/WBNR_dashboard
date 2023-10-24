@@ -13,6 +13,18 @@
     </div>
 
     <main-table actionDots :list_url="'admin/governorates'" :loadingTable="loadingTable" :actions="actions"  :columns="columns">
+      <template v-slot:name="{data}">
+        <div class="flex items-center gap-2 py-2">
+          <img :src="data.country.image">
+          <p>{{data.name}}</p>
+        </div>
+      </template>
+      <template v-slot:delivery_cost="{data}">
+        <div class="flex items-center gap-2 py-2">
+          <p>{{data.delivery_cost}}</p>
+          <p>{{data.country.currency}}</p>
+        </div>
+      </template>
     </main-table>
 
   </Box>
@@ -37,6 +49,7 @@ const columns = [
 const actions = [
   {
     text: 'تعديل',
+    permission: 'areas:edit',
     icon:'pi pi-pencil',
     action: (val) => {
       details.value = val
@@ -45,6 +58,7 @@ const actions = [
   },
   {
     text: 'مسح',
+    permission: 'areas:soft_remove',
     icon:'pi pi-trash',
     action: (val) => window.showDeleteModal({
       title: 'محافظة',

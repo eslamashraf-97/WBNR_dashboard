@@ -4,7 +4,7 @@
       <roleDetails @finish="loadingTable = true; visible = false" :details="details"/>
     </Dialog>
     <div class="flex justify-between items-center mb-10 border-b-2 pb-3">
-      <h5 class="text-md mb-4">العملاء</h5>
+      <h5 class="text-md mb-4">الأدوار</h5>
       <app-button submit-title="إضف دور عمل" class="rounded-lg font-medium !py-3" @click="visible = true">
         <template v-slot:icon>
           +
@@ -26,7 +26,6 @@
 
 <script setup>
 import { ref } from 'vue'
-import InputSwitch from 'primevue/inputswitch';
 import roleDetails from '@/modules/employee/components/roleDetails.vue'
 
 const columns = [
@@ -47,6 +46,7 @@ const actions = [
   {
     text: 'تعديل',
     icon:'pi pi-pencil',
+    permission: 'roles:create',
     action: (val) => {
       details.value = val
       visible.value = true
@@ -55,6 +55,7 @@ const actions = [
   {
     text: 'مسح',
     icon:'pi pi-trash',
+    permission: 'roles:soft_remove',
     action: (val) => window.showDeleteModal({
       title: 'منتج',
       id: val.id,
