@@ -45,8 +45,9 @@ function signIn() {
     authService.getInfo().then(response => {
       localStorage.setItem('userInfo', JSON.stringify(response.data.data))
       localStorage.setItem('permissions', JSON.stringify(response.data.data.permissions.map(data => data.slug)))
+    }).then( () => {
+      router.push({name: 'index'})
     })
-    router.push({name: 'index'})
   }).finally(() => loading.value = false)
 }
 </script>

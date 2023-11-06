@@ -11,4 +11,10 @@
 	  uploadImage (file, config = {}) {
 		  return api().post(`admin/upload/product-images`, file , config)
 	  },
+	  getNotification (page = 1) {
+		  return api().get(`admin/notifications?page=${page}`)
+	  },
+	  changeItemStatus (id) {
+		  return api().patch(`admin/notifications/mark-as-read/${id}`)
+	  }
   };

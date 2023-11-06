@@ -11,6 +11,7 @@ import governorateRoutes from "@/modules/governorates/governorate.routes";
 import customerRoutes from "@/modules/customers/customer.routes";
 import employeeRoutes from "@/modules/employee/employee.routes";
 import orderRoutes from "@/modules/orders/order.routes";
+import returnedOrderRoutes from "@/modules/returnOrders/order.routes";
 import walletRoutes from "@modules/wallet/wallet.routes";
 
 const router = createRouter({
@@ -33,6 +34,7 @@ const router = createRouter({
 				...customerRoutes,
 				...employeeRoutes,
 				...orderRoutes,
+				...returnedOrderRoutes,
 				...walletRoutes
 			],
 			meta: {
@@ -51,25 +53,25 @@ const router = createRouter({
 		}
 	],
 });
-// router.beforeEach((to, from, next) => {
-// 	to.matched.some((record) => {
-// 		const tokenValid = !!localStorage.getItem('access_token')
-// 		if (record.meta.requireAuth && !tokenValid) {
-// 			next({
-// 				name: "signIn",
-// 			});
-// 		}
-// 		else if (record.meta.authRoute && tokenValid) {
-// 			next({
-// 				name: "home",
-// 			});
-// 		}
-// 		else {
-// 			next()
-// 		}
-//
-// 		return true
-// 	});
-// });
+router.beforeEach((to, from, next) => {
+	to.matched.some((record) => {
+		const tokenValid = !!localStorage.getItem('access_token')
+		if (record.meta.requireAuth && !tokenValid) {
+			next({
+				name: "signIn",
+			});
+		}
+		else if (record.meta.authRoute && tokenValid) {
+			next({
+				name: "home",
+			});
+		}
+		else {
+			next()
+		}
+
+		return true
+	});
+});
 
 export default router;

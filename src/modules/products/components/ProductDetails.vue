@@ -23,6 +23,66 @@
             </div>
         </section>
       </div>
+
+      <div class="my-2 col-span-2">
+        <label class="text-black text-lg">خصائص المنتج</label>
+        <FieldArray name="variants" v-slot="{ fields, push, remove }">
+          <div v-for="(field, idx) in fields" :key="field.key" class="p-3 rounded-2xl bg-gray-200 w-100 mb-2">
+            <label class="text-black text-lg">معلومات رئيسية عن الخاصية</label>
+            <div class="grid md:grid-cols-3 gap-x-8 items-center">
+              <MainSelect :options="['كتابة','الوان']" :name="`variants[${idx}].type`"  label="اختر النوع" validation="required" placeholder="اختر النوع"/>
+              <InputField :name="`variants[${idx}].name_ar`"
+                          class="col-span-1"
+                          label="الاسم بالعربى"
+                          validation="required"
+              />
+              <InputField :name="`variants[${idx}].name_en`"
+                          class="col-span-1"
+                          label="الاسم باللغه الانجليزية"
+                          validation="required"
+              />
+<!--              <app-button type="button" class="col-span-1 bg-red-700" @click="remove(idx)">-->
+<!--                مسح-->
+<!--              </app-button>-->
+            </div>
+            <label class="text-black text-lg">قيم الخاصية</label>
+            <FieldArray :name="`variants[${idx}].values`" v-slot="{ fields: f, push: p, remove: r }">
+              <div v-for="(fieldIn, ix) in f" :key="fieldIn.key" class="p-3 rounded-2xl bg-gray-200 w-100 mb-2">
+                <div v-if="field.value.type == 'كتابة'" class="grid grid-cols-2 gap-4">
+                  <InputField :name="`variants[${idx}].values[${ix}].name_ar`"
+                              label="الاسم بالعربى"
+                              validation="required"
+                  />
+                  <InputField :name="`variants[${idx}].values[${ix}].name_en`"
+                              label="الاسم باللغه الانجليزية"
+                              validation="required"
+                  />
+                </div>
+                <div v-else-if="field.value.type == 'الوان'">
+                  <InputField :name="`variants[${idx}].values[${ix}].name_ar`"
+                              class="col-span-1 !py-1"
+                              label="اختر اللون"
+                              validation="required"
+                              type="color"
+                  />
+                  <InputField v-if="false" :name="`variants[${idx}].values[${ix}].name_en`"
+                              class="col-span-1 !py-1"
+                              label="اختر اللون"
+                              validation="required"
+                              type="color"
+                  />
+                </div>
+              </div>
+              <app-button v-if="field.value.type" type="button" class="!text-primary-300 !p-0	bg-transparent border-0" @click="field.value.type == 'الوان' ? p({ name_ar: '', name_en: '0' }) : p({ name_ar: '', name_en: '' })">
+                + أضف  قيمة جديده
+              </app-button>
+            </FieldArray>
+          </div>
+          <app-button type="button" class="!text-primary-300 !p-0	bg-transparent border-0" @click="push({ name_ar: '', name_en: '', values: [], type: '' })">
+           + أضف  خاصية جديده
+          </app-button>
+        </FieldArray>
+      </div>
       <MainTextarea class="col-span-2" name="description" plceholder="تفاصيل"></MainTextarea>
     </div>
     <div class="sign-up__button-action mt-4">

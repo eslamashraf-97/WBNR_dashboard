@@ -1,4 +1,4 @@
-import { Form, Field, ErrorMessage } from 'vee-validate';
+import { Form, Field, ErrorMessage, FieldArray } from 'vee-validate';
 import { defineRule } from 'vee-validate';
 import AllRules from '@vee-validate/rules/dist/vee-validate-rules.js';
 Object.keys(AllRules).forEach((rule) => {
@@ -63,6 +63,7 @@ export default {
 	install: (app) => {
 		app
 			.component('ValidationForm', Form)
+			.component('FieldArray', FieldArray)
 			.component('Field', Field)
 			.component('ErrorMessage', ErrorMessage);
 	},

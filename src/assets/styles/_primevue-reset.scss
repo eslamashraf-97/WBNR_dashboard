@@ -51,7 +51,9 @@ input {
 		border-color: red;
 	}
 }
-
+input[type='color'] {
+	padding: 0 !important
+}
 textarea {
 	border-width: 1px !important;
 	border-color: theme('colors.gray.200') !important;

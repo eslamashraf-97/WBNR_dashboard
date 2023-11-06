@@ -1,11 +1,30 @@
 <template>
   <div class="bg-white fixed w-full z-10 top-0 shadow-nav flex justify-between items-center gap-2 py-2 px-10">
-    <div class="flex gap-2">
+    <div class="flex gap-2 w-100">
       <img
           class="w-auto"
           src="@/assets/images/logo/logo.png"
           alt=""
      />
+    </div>
+    <div>
+      <Button type="button"  @click="toggle" aria-haspopup="true" aria-controls="overlay_menu">
+        <img src="@/assets/images/notification.gif" width="40" />
+      </Button>
+      <Menu ref="menu" id="overlay_menu" class="w-[17rem]" :model="items" :popup="true">
+        <template #start>
+          <div class="bg-primary-300 px-2 py-2 text-white rounded-b-xl">
+              <h6>Notifications</h6>
+          </div>
+        </template>
+        <template #item="{ item, props }">
+          <div @click="changeItemStatus(item)" :class="['px-2 py-2 cursor-pointer bg-gray-200 border-b', {'!bg-white' : item.is_read || allSelected.includes(item.id)}]">
+            <h5 class="text-lg">{{item.title}}</h5>
+            <p>{{item.body}}</p>
+            <p class="text-sm text-left">{{item.createdAt.substring(0,10)}}</p>
+          </div>
+        </template>
+      </Menu>
     </div>
     <span @click="$emit('openMobileMenu')" class="lg:hidden">
       <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 48 48">
@@ -15,4 +34,30 @@
   </div>
 </template>
 <script setup>
+import { ref } from 'vue'
+import Menu from "primevue/menu";
+import services from "@/services";
+const menu = ref();
+const items = ref([
+]);
+const allSelected = ref([])
+function getNotification() {
+  services.getNotification().then(res => {
+    items.value = res.data.data
+  })
+}
+getNotification()
+const toggle = (event) => {
+  menu.value.toggle(event);
+};
+function changeItemStatus(item) {
+  services.changeItemStatus(item.id)
+  allSelected.value.push(item.id)
+}
 </script>
+<style>
+.p-menu-list {
+  max-height: 600px !important;
+  overflow: auto;
+}
+</style>
