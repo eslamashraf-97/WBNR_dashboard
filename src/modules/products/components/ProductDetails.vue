@@ -7,7 +7,7 @@
       <InputField type="text" validation="required" placeholder="الاسم باللغه العربية" name="title_ar"/>
       <InputField type="text" validation="required" placeholder="الاسم باللغه الانجليزية" name="title_en"/>
       <InputField type="text" validation="required|numeric" placeholder="السعر" name="price"/>
-      <InputField type="text" validation="required|nume ric" placeholder="الكمية" name="stock"/>
+      <InputField type="text" validation="required|numeric" placeholder="الكمية" name="stock"/>
       <InputField type="text" validation="required|numeric" placeholder="اكثر قيمة عمولة" name="maxCommission"/>
       <InputField type="text" validation="required|numeric" placeholder="اقل قيمة عمولة" name="minCommission"/>
       <MainSelect :options="allCategories" name="category_id" validation="required" optionLabel="name" optionValue="id" placeholder="اختر القسم"/>
