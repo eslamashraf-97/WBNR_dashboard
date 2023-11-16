@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-4 md:w-[216px]">
-    <section class="relative cursor-pointer w-100 md:w-[216px] !h-[132px] h-full rounded-xl border-2 border-mutedColor border-dashed flex items-center justify-center flex-col" @click="file.click">
+    <section class="relative cursor-pointer w-100 md:w-[216px] !h-[132px] w-100 rounded-xl border-2 border-mutedColor border-dashed flex items-center justify-center flex-col">
       <Field :name="name" v-slot="{ field, meta, errors }"
                  :rules="required ? 'required' : ''"
                  validate-on-input
@@ -14,9 +14,8 @@
             v-bind="field"
             placeholder="placeholder"
             type="file"
-            class="absolute"
+            class="absolute w-full h-full top-0 lef-0 opacity-0"
             :ref="file"
-           v-show="false"
         />
         <div class="flex flex-col items-center">
           <Icon :name="progressBar == 100 ? 'ep:success-filled' : 'bytesize:upload'" class="text-3xl text-teal-600" />
