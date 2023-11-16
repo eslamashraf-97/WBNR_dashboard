@@ -1,7 +1,4 @@
 <template>
-  <Dialog v-model:visible="visible" maximizable  modal :header="'إضافة منتج'" :style="{ width: '50vw' }">
-    <productDetails @finish="visible = false" :details="{}"/>
-  </Dialog>
 	<div class="flex min-h-0 flex-1 flex-col">
 		<div class="flex flex-1 flex-col overflow-y-auto pt-4 px-2">
       <div class="profile px-3 flex gap-2 items-center py-2 border-b">
@@ -41,15 +38,6 @@
 			<section
 				:class="'hover:cursor-pointer lg:block group px-4 py-0 pb-3 text-base font-medium hidden'"
 			>
-        <div class="bg-primary-300/10 p-4 rounded-main">
-          <p class="text-primary text-center text-sm mb-4">
-            إضافة منتج جديد الان
-          </p>
-          <img src="@/assets/images/dashboard.png" class="m-auto w-[50%]"/>
-          <div class="flex justify-center mt-4">
-            <app-button submit-title="إضافة منتج جديد" class="rounded-[5px]" class-content="px-8 py-1 text-sm" @click="visible = true"></app-button>
-          </div>
-        </div>
         <div class="mt-4 border-t border-dashed border-gray-secondary pt-4">
           <app-button @click="logout" submit-title="تسجيل الخروج" class-content="rounded-lg w-full py-2 bg-white text-sm !text-gray-700 border border-mutedColor">
             <template v-slot:icon>

@@ -56,7 +56,7 @@
       </template>
       <template v-slot:country="{data}">
         <div class="flex items-center gap-2 py-2">
-          <img :src="data.country.image">
+          <img class="flag" :src="data.country.image">
           <p>{{data.country.name}}</p>
         </div>
       </template>

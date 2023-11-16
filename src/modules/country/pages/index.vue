@@ -7,12 +7,12 @@
     <main-table :showActions="false" :list_url="'admin/countries'" :columns="columns">
       <template v-slot:name="{data}">
         <div class="flex items-center gap-2 py-2">
-          <img :src="data.image">
+          <img class="flag" :src="data.image">
           <p>{{data.name}}</p>
         </div>
       </template>
       <template v-slot:active="{data}">
-        <InputSwitch v-model="visible"/>
+        <InputSwitch v-model="data.status" true-value="active" @change="toggle(data.id)"/>
       </template>
     </main-table>
 
@@ -35,14 +35,17 @@ const columns = [
   {
     header: 'الضريبة %',
     field: 'taxPercentage'
+  },
+  {
+    header: 'مفعل',
+    field: 'active'
   }
-  // {
-  //   header: 'متاح',
-  //   field: 'active'
-  // }
 ]
 
 const details = ref({})
 const visible = ref(true)
 
+function toggle(id) {
+  console.log('id => ', id)
+}
 </script>

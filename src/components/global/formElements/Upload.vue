@@ -16,7 +16,7 @@
             type="file"
             class="absolute"
             :ref="file"
-            style="opacity: 0; z-index: -2"
+           v-show="false"
         />
         <div class="flex flex-col items-center">
           <Icon :name="progressBar == 100 ? 'ep:success-filled' : 'bytesize:upload'" class="text-3xl text-teal-600" />

@@ -2,10 +2,12 @@
 
   <ValidationForm @submit="onsubmit" 	v-slot="{ values }" :initialValues="details" >
     <div class="grid grid-cols-2 gap-2">
+      <InputField type="text" validation="required" placeholder="كود المنتج" name="code"/>
+      <InputField type="text" validation="required" placeholder="اسم التاجر" name="merchant_name"/>
       <InputField type="text" validation="required" placeholder="الاسم باللغه العربية" name="title_ar"/>
       <InputField type="text" validation="required" placeholder="الاسم باللغه الانجليزية" name="title_en"/>
       <InputField type="text" validation="required|numeric" placeholder="السعر" name="price"/>
-      <InputField type="text" validation="required|numeric" placeholder="الكمية" name="stock"/>
+      <InputField type="text" validation="required|nume ric" placeholder="الكمية" name="stock"/>
       <InputField type="text" validation="required|numeric" placeholder="اكثر قيمة عمولة" name="maxCommission"/>
       <InputField type="text" validation="required|numeric" placeholder="اقل قيمة عمولة" name="minCommission"/>
       <MainSelect :options="allCategories" name="category_id" validation="required" optionLabel="name" optionValue="id" placeholder="اختر القسم"/>
@@ -15,7 +17,7 @@
       </div>
       <div class="col-span-2 flex flex-wrap gap-2 overflow-hidden">
         <Upload name="images" :label="` صوره ${key + 1}`" v-for="(item, key) in images" :key="key" @upload="uploadMultiImage"/>
-        <section class="relative cursor-pointer md:w-[216px] h-[132px] h-full rounded-xl border-2 border-mutedColor border-dashed flex items-center justify-center flex-col" @click="addNewImage">
+        <section class="relative cursor-pointer md:w-[216px] h-[132px] rounded-xl border-2 border-mutedColor border-dashed flex items-center justify-center flex-col" @click="addNewImage">
             <div class="flex flex-col items-center">
               <p class="text-gray-300 text-md mt-2 w-100 text-center font-semibold">
                 رفع صورة جديدة +
@@ -23,6 +25,8 @@
             </div>
         </section>
       </div>
+
+      <InputField class="col-span-2" type="text" validation="" placeholder="لينك فيديو" name="video"/>
 
       <div class="my-2 col-span-2">
         <label class="text-black text-lg">خصائص المنتج</label>
@@ -83,7 +87,10 @@
           </app-button>
         </FieldArray>
       </div>
-      <MainTextarea class="col-span-2" name="description" plceholder="تفاصيل"></MainTextarea>
+      <label :for="id" class="capitalize p-0 font-semibold font-14 text-text-700" >تفاصيل المنتج</label>
+      <MainTextarea class="col-span-2" name="description" plceholder="تفاصيل المنتج"></MainTextarea>
+      <label :for="id" class="capitalize p-0 font-semibold font-14 text-text-700" >شرح المنتج</label>
+      <MainTextarea class="col-span-2" name="explain" plceholder="شرح المنتج"></MainTextarea>
     </div>
     <div class="sign-up__button-action mt-4">
       <AppButton class="" type="submit" :loading="loading" submit-title="حفظ المنتج"></AppButton>
@@ -105,9 +112,10 @@ const props = defineProps(['details'])
 const emit = defineEmits(['finish'])
 
 let featured_image = props.details?.featured_image || ''
-let images = ref(props.details?.images || [{
-  url: ''
-}])
+let images = ref(props.details?.images || [
+  {
+    url: ''
+  }])
 let loading = ref(false)
 const allCategories = ref([])
 
