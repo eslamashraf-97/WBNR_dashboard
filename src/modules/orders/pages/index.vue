@@ -37,10 +37,10 @@
       <label class="mt-3 mb-2 text-gray-700 text-lg">اختر الحالة :</label>
       <div class="gap-4 grid grid-cols-4">
         <div :class="['col-span-1 overflow-hidden cursor-pointer']" @click="selected = item" v-for="(item, key) in status" :key="key">
-          <div :class="['border w-full text-center py-3 rounded-md', {'bg-primary-200 text-primary-300': selected == item}]">{{ item }}</div>
+          <div :class="['border w-full text-center py-3 rounded-md', {'bg-primary-200 text-primary-300': selected == item}]">{{ status_text[item] }}</div>
         </div>
       </div>
-
+      <textarea v-model="reason" class="w-full mt-4" placeholder="ملحوظة"></textarea>
       <div class="flex justify-center mt-5">
         <app-button submit-title="حفط التغييرات" :loading="loading" type="button" @click="changeStatus"/>
       </div>
@@ -92,7 +92,7 @@
       </template>
       <template v-slot:status="{data}">
         <div class="flex items-center gap-2 py-2">
-          <p :class="`status--${data.status}`">{{data.status}}</p>
+          <p :class="`status--${data.status}`">{{status_text[data.status]}}</p>
         </div>
       </template>
       <template v-slot:changeStatus="{data}">
@@ -176,9 +176,19 @@ const clientDetails = ref({})
 const orderDetails = ref({})
 const selected = ref()
 const loading = ref(false)
+const reason = ref('')
 const loadingTable = ref(false)
 
 const status = ['pending', 'confirmed',  'processing', 'cancelled', 'shipping', 'rejected', 'delivered']
+const status_text = ref({
+  pending: 'قيد الانتظار',
+  confirmed: 'تأكيد',
+  processing: 'جارة التجهيز ',
+  cancelled: 'مرفوض',
+  shipping: 'جارى التوصيل',
+  rejected: 'مرفوض',
+  delivered: 'تم الاستلام'
+})
 function showDetails(data) {
   showClientDetails.value = true
   clientDetails.value = data
@@ -191,7 +201,7 @@ function showOrderDetails(data) {
 function changeStatus () {
   loading.value = true
   loadingTable.value = false
-  orderServices.changeStatus(orderDetails.value.id, {status: selected.value}).then(() => {
+  orderServices.changeStatus(orderDetails.value.id, {status: selected.value, reason: reason.value}).then(() => {
     showOrderDetail.value = false
     loadingTable.value = true
   }).finally(() => {

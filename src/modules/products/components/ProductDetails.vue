@@ -1,5 +1,4 @@
 <template>
-
   <ValidationForm @submit="onsubmit" 	v-slot="{ values }" :initialValues="details" >
     <div class="grid grid-cols-2 gap-2">
       <InputField type="text" validation="required" placeholder="كود المنتج" name="code"/>
@@ -16,7 +15,7 @@
         <Upload name="featured_image" label="الصورة الرئيسية" @upload="uploadImage"/>
       </div>
       <div class="col-span-2 flex flex-wrap gap-2 overflow-hidden">
-        <Upload name="images" :label="` صوره ${key + 1}`" v-for="(item, key) in images" :key="key" @upload="uploadMultiImage"/>
+        <Upload name="images" :label="` صوره ${key + 1}`" v-for="(item, key) in images" :key="key" @upload="uploadMultiImage" @deleteImage="deleteImage"/>
         <section class="relative cursor-pointer md:w-[216px] h-[132px] rounded-xl border-2 border-mutedColor border-dashed flex items-center justify-center flex-col" @click="addNewImage">
             <div class="flex flex-col items-center">
               <p class="text-gray-300 text-md mt-2 w-100 text-center font-semibold">
@@ -32,7 +31,12 @@
         <label class="text-black text-lg">خصائص المنتج</label>
         <FieldArray name="variants" v-slot="{ fields, push, remove }">
           <div v-for="(field, idx) in fields" :key="field.key" class="p-3 rounded-2xl bg-gray-200 w-100 mb-2">
-            <label class="text-black text-lg">معلومات رئيسية عن الخاصية</label>
+            <div class="flex justify-between">
+              <label class="text-black text-lg">معلومات رئيسية عن الخاصية</label>
+              <div class="delete_box shadow" @click="remove">
+                <i class="pi pi-trash text-white" />
+              </div>
+            </div>
             <div class="grid md:grid-cols-3 gap-x-8 items-center">
               <MainSelect :options="['كتابة','الوان']" :name="`variants[${idx}].type`"  label="اختر النوع" validation="required" placeholder="اختر النوع"/>
               <InputField :name="`variants[${idx}].name_ar`"
@@ -52,7 +56,7 @@
             <label class="text-black text-lg">قيم الخاصية</label>
             <FieldArray :name="`variants[${idx}].values`" v-slot="{ fields: f, push: p, remove: r }">
               <div v-for="(fieldIn, ix) in f" :key="fieldIn.key" class="p-3 rounded-2xl bg-gray-200 w-100 mb-2">
-                <div v-if="field.value.type == 'كتابة'" class="grid grid-cols-2 gap-4">
+                <div v-if="field.value.type == 'كتابة'" class="grid grid-cols-3 gap-4 items-center">
                   <InputField :name="`variants[${idx}].values[${ix}].name_ar`"
                               label="الاسم بالعربى"
                               validation="required"
@@ -61,6 +65,7 @@
                               label="الاسم باللغه الانجليزية"
                               validation="required"
                   />
+                  <app-button @click="r" class="!bg-red-600 text-white">مسج</app-button>
                 </div>
                 <div v-else-if="field.value.type == 'الوان'">
                   <InputField :name="`variants[${idx}].values[${ix}].name_ar`"
@@ -75,6 +80,7 @@
                               validation="required"
                               type="color"
                   />
+                  <app-button @click="r" class="!bg-red-600 text-white">مسج</app-button>
                 </div>
               </div>
               <app-button v-if="field.value.type" type="button" class="!text-primary-300 !p-0	bg-transparent border-0" @click="field.value.type == 'الوان' ? p({ name_ar: '', name_en: '0' }) : p({ name_ar: '', name_en: '' })">
@@ -98,7 +104,7 @@
   </ValidationForm>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 import MainSelect from "@/components/global/formElements/MainSelect.vue"
 import MainTextarea from "@/components/global/formElements/MainTextarea.vue"
@@ -119,6 +125,10 @@ let images = ref(props.details?.images || [
 let loading = ref(false)
 const allCategories = ref([])
 
+function deleteImage(image) {
+  let ind = images.findIndex(data => data === image)
+  images.splice(ind, 1)
+}
 function getAllCategory () {
   categoryServices.getAllCategory().then(res => {
     allCategories.value = res.data.data
@@ -156,7 +166,10 @@ function onsubmit (values) {
     })
   }
 }
+watch(() => props.details, (data) => {
+  images.value = data.images
 
+});
 </script>
 <style>
 
