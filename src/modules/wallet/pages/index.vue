@@ -1,6 +1,6 @@
 <template>
   <Box class="p-5">
-    <Dialog v-model:visible="showOrderDetail" maximizable  modal :header="'تفاصيل الطلب'" :style="{ width: '50vw' }">
+    <Dialog v-model:visible="showOrderDetail" maximizable  modal :header="'تفاصيل الطلب'" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
       <p v-for="(i, key, ind) in details.withdraw_method_details" :key="ind" class="mb-4 text-end">
         {{key}} : {{i}}
       </p>

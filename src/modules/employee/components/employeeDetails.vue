@@ -1,6 +1,6 @@
 <template>
   <ValidationForm @submit="onsubmit" 	v-slot="{ values }" :initialValues="details">
-    <div class="grid grid-cols-2 gap-2">
+    <div class="ld:grid grid-cols-2 gap-2">
       <InputField type="text" validation="required" placeholder="اسم الموظف" name="name"/>
       <InputField type="text" validation="required|numeric" placeholder="كود الدولة" name="country_code"/>
       <InputField type="text" validation="required|numeric" placeholder="رقم التليفون" name="phone"/>

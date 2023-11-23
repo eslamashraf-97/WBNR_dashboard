@@ -1,6 +1,6 @@
 <template>
   <ValidationForm @submit="onsubmit" 	v-slot="{ values }" :initialValues="details" >
-    <div class="grid grid-cols-2 gap-2">
+    <div class="ld:grid grid-cols-2 gap-2">
       <InputField type="text" validation="required" placeholder="كود المنتج" name="code"/>
       <InputField type="text" validation="required" placeholder="اسم التاجر" name="merchant_name"/>
       <InputField type="text" validation="required" placeholder="الاسم باللغه العربية" name="title_ar"/>

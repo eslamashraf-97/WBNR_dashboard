@@ -1,6 +1,6 @@
 <template>
   <Box class="p-5">
-    <Dialog v-model:visible="visible" maximizable  modal :header="'إضافة دور عمل'" :style="{ width: '50vw' }">
+    <Dialog v-model:visible="visible" maximizable  modal :header="'إضافة دور عمل'" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
       <roleDetails @finish="loadingTable = true; visible = false" :details="details"/>
     </Dialog>
     <div class="flex justify-between items-center mb-10 border-b-2 pb-3">

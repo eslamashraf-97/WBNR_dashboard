@@ -1,6 +1,6 @@
 <template>
   <Box class="p-5">
-    <Dialog v-model:visible="showClientDetails" maximizable  modal :header="'تفاصيل العميل'" :style="{ width: '50vw' }">
+    <Dialog v-model:visible="showClientDetails" maximizable  modal :header="'تفاصيل العميل'" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
       <div class="mb-4">
         <span class="inline-block w-[120px] text-gray-500">اسم :</span>
         <span>{{ clientDetails.name }}</span>
@@ -22,7 +22,7 @@
         <span>{{ clientDetails.notes }}</span>
       </div>
     </Dialog>
-    <Dialog v-model:visible="showOrderDetail" maximizable  modal :header="'تفاصيل الطلب'" :style="{ width: '50vw' }">
+    <Dialog v-model:visible="showOrderDetail" maximizable  modal :header="'تفاصيل الطلب'" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
       <main-table :show-actions="false" :loading-table="loadingTable" :list_data="orderDetails.orderItems" :columns="columnsProducts">
         <template v-slot:product="{data}">
           <div class="flex items-center gap-2 py-2">

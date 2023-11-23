@@ -1,6 +1,6 @@
 <template>
   <ValidationForm @submit="onsubmit" 	v-slot="{ values }" :initialValues="details">
-    <div class="grid grid-cols-2 gap-2">
+    <div class="ld:grid grid-cols-2 gap-2">
       <InputField type="text" validation="required" placeholder="الاسم باللغه العربية" name="name_ar"/>
       <InputField type="text" validation="required" placeholder="الاسم باللغه الانجليزية" name="name_en"/>
       <div v-for="(item, key) in permissions" :key="key">

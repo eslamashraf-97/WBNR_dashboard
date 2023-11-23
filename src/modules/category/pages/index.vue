@@ -1,6 +1,6 @@
 <template>
   <Box class="p-5">
-    <Dialog v-model:visible="visible" maximizable  modal :header="'إضافة قسم'" :style="{ width: '50vw' }">
+    <Dialog v-model:visible="visible" maximizable  modal :header="'إضافة قسم'" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
       <categoryDetails @finish="loadingTable = true; visible = false" :details="details" :selectedID="selcetedCat?.id"/>
     </Dialog>
     <div class="flex justify-between items-center mb-10 border-b-2 pb-3">
@@ -12,7 +12,7 @@
       </app-button>
     </div>
 
-    <div class="flex flex-nowrap gap-2">
+    <div class="flex flex-col md:flex-row flex-nowrap gap-2">
       <div class="flex-1">
         <label class="tex-2xl text-gray-700 font-semibold">المستوى الاول </label>
         <main-table actionDots :list_url="'admin/product-category'" :loadingTable="loadingTable" :actions="actions"  :columns="columns">

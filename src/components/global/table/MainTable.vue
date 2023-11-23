@@ -19,8 +19,8 @@
       </template>
 
       <template #footer v-if="list_url && pagination">
-        <div class="flex justify-between items-center ">
-          <div class="flex items-center gap-3">
+        <div class="md:flex justify-between items-center ">
+          <div class="mb-4 md:mb-0 flex items-center gap-3">
             <p class="mb-0 text-sm">Row per page</p>
             <Dropdown :options="[10,25,50,100]" v-model="pagination.take" @change="changeLimit" class="!h-[35px] rounded-md">
               <template v-slot:dropdownicon>
