@@ -149,6 +149,11 @@ watch(() => props.loadingTable, (val) => {
     getDataFromServer({page : pagination.value ? pagination.value.page - 1 : 1})
   }
 })
+watch(() => props.filters, (val) => {
+  if(val) {
+    getDataFromServer({page :  1})
+  }
+})
 watch(() => props.list_data, (val) => {
   allItems.value = val
 })
@@ -157,11 +162,12 @@ function changeLimit(data) {
   getDataFromServer({page: 0}, data.value)
 }
 function getDataFromServer({page = 0 }, limit = 10 ) {
+  console.log(props.filters)
   loadingTableFromServer.value = true
   mainServices.listDataTabl(props['list_url'], {
     page: page ? page + 1 : 1,
     take: limit,
-    ...props.filter
+    ...props.filters
   }).then(res => {
     allItems.value = res.data.data
     pagination.value = res.data?.meta
@@ -184,7 +190,7 @@ function changePage (data) {
 // event when delete successfully
 emitter.on("reloadAfterDelete", () => {
   if(props.list_url) {
-    getDataFromServer({page: pagination.value ? pagination.value.page - 1 : 1})
+    getDataFromServer({page: pagination.value ? pagination.value.page - 1 : 1, ...props.filters})
   }
 })
 </script>

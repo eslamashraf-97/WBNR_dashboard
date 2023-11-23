@@ -12,7 +12,7 @@
         </div>
       </template>
       <template v-slot:active="{data}">
-        <InputSwitch v-model="data.status" true-value="active" @change="toggle(data.id)"/>
+        <InputSwitch v-model="data.status" true-value="active" @change="toggle(data.id, data.status)"/>
       </template>
     </main-table>
 
@@ -21,8 +21,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import InputSwitch from 'primevue/inputswitch';
-
+  import InputSwitch from 'primevue/inputswitch';
+import countryService from '../services/country.services'
 const columns = [
   {
     header: 'الاسم',
@@ -45,7 +45,7 @@ const columns = [
 const details = ref({})
 const visible = ref(true)
 
-function toggle(id) {
-  console.log('id => ', id)
+function toggle(id, status) {
+  countryService.switchStatus(id, status ? 'active' : 'deactive')
 }
 </script>

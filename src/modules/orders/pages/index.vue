@@ -49,8 +49,7 @@
     <div class="flex justify-between items-center mb-10 border-b-2 pb-3">
       <h5 class="text-md mb-4">الطلبات</h5>
     </div>
-
-    <main-table :showActions="false" :loading-table="loadingTable" :list_url="'admin/orders'" :columns="columns">
+    <main-table :filters="$route.query" :showActions="false" :loading-table="loadingTable" :list_url="'admin/orders'" :columns="columns">
       <template v-slot:orderItems="{data}">
         <p>{{data.orderItems.length}}</p>
       </template>

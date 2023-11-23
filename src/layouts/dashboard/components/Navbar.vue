@@ -37,6 +37,9 @@
 import { ref } from 'vue'
 import Menu from "primevue/menu";
 import services from "@/services";
+import {useRouter} from "vue-router";
+
+const router = useRouter()
 const menu = ref();
 const items = ref([
 ]);
@@ -53,6 +56,9 @@ const toggle = (event) => {
 function changeItemStatus(item) {
   services.changeItemStatus(item.id)
   allSelected.value.push(item.id)
+  if(item.type == 'order') {
+    router.push({name:'orders', query: {id:item.id }})
+  }
 }
 </script>
 <style>

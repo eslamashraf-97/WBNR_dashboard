@@ -50,9 +50,9 @@ import mainServices from '@/services/index.js'
 
 const file = ref('file')
 const imageUrl = ref('')
+const imageBack = ref('')
 const progressBar = ref(false)
-const emit = defineEmits(['upload'])
-
+const emit = defineEmits(['uploadImageUrl'])
 const props = defineProps({
   label: {
     type: String
@@ -83,9 +83,12 @@ function previewAttachemnt (e) {
     }
   }
   mainServices.uploadImage(fd, config).then(res => {
+    // console.log('res ', res.data.url)
     imageUrl.value = res.data.full_url
-    imageBack.value = res.data.res.data.url
-    emit('upload', res.data.url)
+    imageBack.value = res.data.url
+    // debugger
+    emit('uploadImageUrl', res.data.url)
+    // debugger
   }).catch(err => {
     progressBar.value = 0
   })

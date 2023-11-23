@@ -29,6 +29,9 @@
          {{data.price}}  {{data.country.currency}}
         </div>
       </template>
+      <template v-slot:active="{data}">
+        <InputSwitch v-model="data.is_active" @change="toggle(data.id, data.is_active)"/>
+      </template>
       <template v-slot:product_unit="{data}">
         <div class="flex items-center gap-2 py-2">
          {{data.product_unit.name}}
@@ -43,6 +46,7 @@
 import { ref } from 'vue'
 import Avatar  from 'primevue/avatar'
 import productDetails from '../components/ProductDetails.vue'
+import productService from "../services/product.services";
 
 const loadingTable = ref(false)
 const columns = [
@@ -80,6 +84,10 @@ const columns = [
   {
     header: 'الوحدة',
     field: 'product_unit'
+  },
+  {
+    header: 'مفعل',
+    field: 'active'
   }
 ]
 const actions = [
@@ -106,5 +114,7 @@ const actions = [
 
 const details = ref({})
 const visible = ref(false)
-
+function toggle(id, status) {
+  productService.switchStatus(id, status ? true : false)
+}
 </script>

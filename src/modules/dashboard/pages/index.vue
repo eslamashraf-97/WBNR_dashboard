@@ -1,9 +1,9 @@
 <template>
-  <div class="grid grid-cols-4 gap-4">
+  <div class="grid  md:grid-cols-2  lg:grid-cols-2 xl:grid-cols-4 gap-4 mb-4">
     <div class="flex flex-col bg-gray-100 border border-primary-300 rounded p-4">
-      <p class="text-2xl mb-2">مبيعات</p>
-      <h3 class="mb-0">{{ stats.sales }}</h3>
-    </div>
+        <p class="text-2xl mb-2">مبيعات</p>
+        <h3 class="mb-0">{{ stats.sales }}</h3>
+      </div>
     <div class="flex flex-col bg-gray-100 border border-primary-300 rounded p-4">
       <p class="text-2xl mb-2">عدد المنتجات</p>
       <h3 class="mb-0">{{ stats.total_products }}</h3>

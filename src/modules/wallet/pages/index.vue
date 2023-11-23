@@ -7,7 +7,7 @@
       <label class="mt-3 mb-2 text-gray-700 text-lg">اختر الحالة :</label>
       <div class="gap-4 grid grid-cols-4">
         <div :class="['col-span-1 overflow-hidden cursor-pointer']" @click="selected = item" v-for="(item, key) in status" :key="key">
-          <div :class="['border w-full text-center py-3 rounded-md', {'bg-primary-200 text-primary-300': selected == item}]">{{ item }}</div>
+          <div :class="['border w-full text-center py-3 rounded-md', {'bg-primary-200 text-primary-300': selected == item}]">{{ status_text[item] }}</div>
         </div>
       </div>
 
@@ -26,7 +26,7 @@
       </template>
       <template v-slot:status="{data}">
         <div class="flex items-center gap-2 py-2">
-          <p :class="`status--${data.status}`">{{data.status}}</p>
+          <p :class="`status--${data.status}`">{{status_text[data.status]}}</p>
         </div>
       </template>
     </main-table>
@@ -68,9 +68,13 @@ const details = ref()
 const selected = ref()
 const loading = ref(false)
 const loadingTable = ref(false)
-
-const status = ['pending', 'accepted',  'canceled', 'denied']
-
+const status = ref(["pending", "denied", "accepted", "cancelled"])
+const status_text = ref({
+  pending: 'قيد الانتظار',
+  denied: 'مرفوضة',
+  accepted: "مقبولة",
+  cancelled: 'ملغية',
+})
 function showOrderDetails(data) {
   showOrderDetail.value = true
   details.value = data
