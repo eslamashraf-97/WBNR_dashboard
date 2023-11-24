@@ -28,6 +28,7 @@
             <p class="text-primary-300 text-md mt-2 w-100 text-center font-semibold">
               {{ progressBar == 100 ? `تم رفع  ${label} بنجاح ` : label }}
             </p>
+            {{progressBar ? progressBar : ''}}
           </div>
         </Field>
       </section>
@@ -87,6 +88,7 @@ function previewAttachemnt (e) {
     imageUrl.value = res.data.full_url
     imageBack.value = res.data.url
     // debugger
+    console.log('res.data.url', res.data.url)
     emit('uploadImageUrl', res.data.url)
     // debugger
   }).catch(err => {
