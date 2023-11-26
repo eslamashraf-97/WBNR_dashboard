@@ -12,10 +12,10 @@
       <MainSelect :options="allCategories" name="category_id" validation="required" optionLabel="name" optionValue="id" placeholder="اختر القسم"/>
       <MainSelect :options="countries" name="country_id" optionLabel="name" optionValue="id"  validation="required" placeholder="اختر البلد"/>
       <div class="col-span-2 mb-6">
-        <Upload name="featured_image" label="الصورة الرئيسية" @uploadImageUrl="uploadImage"/>
+        <Upload name="featured_image" label="الصورة الرئيسية" @upload="uploadImage"/>
       </div>
       <div class="col-span-2 flex flex-wrap gap-2 overflow-hidden">
-        <Upload name="images" :label="` صوره ${key + 1}`" v-for="(item, key) in images" :key="key" @uploadImageUrl="uploadMultiImage" @deleteImage="deleteImage"/>
+        <Upload name="images" :label="` صوره ${key + 1}`" v-for="(item, key) in images" :key="key" @upload="uploadMultiImage" @deleteImage="deleteImage"/>
         <section class="relative cursor-pointer md:w-[216px] h-[132px] rounded-xl border-2 border-mutedColor border-dashed flex items-center justify-center flex-col" @click="addNewImage">
             <div class="flex flex-col items-center">
               <p class="text-gray-300 text-md mt-2 w-100 text-center font-semibold">
