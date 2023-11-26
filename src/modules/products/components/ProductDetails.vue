@@ -12,7 +12,7 @@
       <MainSelect :options="allCategories" name="category_id" validation="required" optionLabel="name" optionValue="id" placeholder="اختر القسم"/>
       <MainSelect :options="countries" name="country_id" optionLabel="name" optionValue="id"  validation="required" placeholder="اختر البلد"/>
       <div class="col-span-2 mb-6">
-        <Upload name="featured_image" label="الصورة الرئيسية" @upload="uploadImage"/>
+        <Upload name="featured_image" label="الصورة الرئيسية" @uploadImageUrl="uploadImage"/>
       </div>
       <div class="col-span-2 flex flex-wrap gap-2 overflow-hidden">
         <Upload name="images" :label="` صوره ${key + 1}`" v-for="(item, key) in images" :key="key" @uploadImageUrl="uploadMultiImage" @deleteImage="deleteImage"/>
