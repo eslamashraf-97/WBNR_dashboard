@@ -53,7 +53,7 @@ const file = ref('file')
 const imageUrl = ref('')
 const imageBack = ref('')
 const progressBar = ref(false)
-const emit = defineEmits(['uploadImageUrl'])
+const emit = defineEmits(['upload'])
 const props = defineProps({
   label: {
     type: String
@@ -89,7 +89,7 @@ function previewAttachemnt (e) {
     imageBack.value = res.data.url
     // debugger
     console.log('res.data.url', res.data.url)
-    emit('uploadImageUrl', res.data.url)
+    emit('upload', res.data.url)
     // debugger
   }).catch(err => {
     progressBar.value = 0
