@@ -183,7 +183,7 @@ const status_text = ref({
   pending: 'قيد الانتظار',
   confirmed: 'تأكيد',
   processing: 'جارة التجهيز ',
-  cancelled: 'مرفوض',
+  cancelled: 'ملغاه',
   shipping: 'جارى التوصيل',
   rejected: 'مرفوض',
   delivered: 'تم الاستلام'

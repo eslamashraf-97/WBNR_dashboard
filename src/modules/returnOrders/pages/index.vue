@@ -147,7 +147,7 @@ const columnsProducts = [
 const status_text = ref({
   pending: 'قيد الانتظار',
   confirmed: 'تأكيد',
-  processing: 'جارة التجهيز ',
+  processing: 'جارى التجهيز ',
   cancelled: 'مرفوض',
   shipping: 'جارى التوصيل',
   rejected: 'مرفوض',
