@@ -96,7 +96,7 @@
       <label :for="id" class="capitalize p-0 font-semibold font-14 text-text-700" >تفاصيل المنتج</label>
       <MainTextarea class="col-span-2" name="description" plceholder="تفاصيل المنتج"></MainTextarea>
       <label :for="id" class="capitalize p-0 font-semibold font-14 text-text-700" >شرح المنتج</label>
-      <MainTextarea class="col-span-2" name="explain" plceholder="شرح المنتج"></MainTextarea>
+      <MainTextarea class="col-span-2" name="catalog" plceholder="شرح المنتج"></MainTextarea>
     </div>
     <div class="sign-up__button-action mt-4">
       <AppButton class="" type="submit" :loading="loading" submit-title="حفظ المنتج"></AppButton>

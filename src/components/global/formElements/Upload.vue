@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-4 md:w-[216px]">
-    <div v-if="imageUrl" @click="imageUrl= ''; progressBar = false, $emit('deleteImage', imageBack)"  class="relative cursor-pointer w-100 md:w-[216px] !h-[132px] w-100 rounded-xl border-2 border-mutedColor border-dashed bg-center	 flex-col bg-contain bg-no-repeat	" :style="{ backgroundImage: 'url(' + imageUrl + ')' }">
+    <div v-if="imageUrl" @click="imageUrl= ''; progressBar = false, $emit('deleteImage', imageUrl)"  class="relative cursor-pointer w-100 md:w-[216px] !h-[132px] w-100 rounded-xl border-2 border-mutedColor border-dashed bg-center	 flex-col bg-contain bg-no-repeat	" :style="{ backgroundImage: 'url(' + imageUrl + ')' }">
       <div class="delete_box shadow">
         <i class="pi pi-trash text-white" />
       </div>
@@ -85,8 +85,8 @@ function previewAttachemnt (e) {
   }
   mainServices.uploadImage(fd, config).then(res => {
     // console.log('res ', res.data.url)
-    imageUrl.value = res.data.full_url
-    imageBack.value = res.data.url
+    // imageUrl.value = res.data.full_url
+    imageUrl.value = res.data.url
     // debugger
     console.log('res.data.url', res.data.url)
     emit('upload', res.data.url)

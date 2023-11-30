@@ -9,7 +9,7 @@
 		  return api()[method](`${url}/${rowId}/${additonalUrl ? additonalUrl : ''}`)
 	  },
 	  uploadImage (file, config = {}) {
-		  return api().post(`admin/upload/product-images`, file , config)
+		  return api().post(`admin/upload/image`, file , config)
 	  },
 	  getNotification (page = 1) {
 		  return api().get(`admin/notifications?page=${page}`)
