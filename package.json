@@ -10,7 +10,7 @@
 		"prepare": "husky install"
 	},
 	"dependencies": {
-		"@flaticon/flaticon-uicons": "^1.7.0",
+		"@flaticon/flaticon-uicons": "^3.0.0",
 		"@headlessui/vue": "^1.7.7",
 		"@vee-validate/rules": "^4.7.3",
 		"axios": "^1.2.2",
