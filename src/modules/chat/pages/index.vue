@@ -1,87 +1,99 @@
 <template>
-  <div style="direction: ltr; height: 87vh;">
-      <div class="mx-auto h-full bg-primary-100 rounded-lg overflow-hidden shadow-md">
+  <div style="direction: ltr; height: 87vh">
+    <div
+      class="mx-auto h-full bg-primary-100 rounded-lg overflow-hidden shadow-md"
+    >
       <!-- Chatting -->
       <div class="flex w-100 h-full flex-row justify-between bg-primary-100">
-      <!-- chat list -->
-      <div class="flex flex-col h-full w-2/5 border-r border-primary-100 overflow-y-auto bg-white">
-        <h5 class="border-b text-center border-primary-200">All User</h5>
-        <!-- user list -->
+        <!-- chat list -->
         <div
-          class="flex flex-row py-4 px-2 justify-center items-center border-b"
-          v-for="(user, key) in allCollections"
-          :key="key"
+          class="flex flex-col h-full w-2/5 border-r border-primary-100 overflow-y-auto bg-white"
         >
-          <!-- <div class="w-1/4">
-            <img
-              src="https://source.unsplash.com/_7LbC5J-jw4/600x600"
-              class="object-cover h-12 w-12 rounded-full"
-              alt=""
-            />
-          </div> -->
-          <div class="w-full">
-            <div class="text-lg font-semibold">user {{user}}</div>
+          <h5 class="border-b text-center border-primary-200">All User</h5>
+          <!-- user list -->
+          <div
+            class="flex flex-row py-4 px-2 justify-center items-center border-b"
+            v-for="(user, key) in chats"
+            :key="key"
+          >
+            <button class="w-full" @click="selectChat(user)">
+              <div class="text-lg font-semibold">user {{ user }}</div>
+            </button>
           </div>
+          <!-- end user list -->
         </div>
-        <!-- end user list -->
-      </div>
 
-      <!-- end chat list -->
-      <!-- message -->
-      <div class="w-full px-5 flex flex-col justify-between">
-        <div class="flex flex-col mt-5">
-          <div class="flex justify-end mb-4">
+        <!-- end chat list -->
+        <!-- message -->
+        <div
+          class="w-full flex flex-col justify-between relative"
+          v-if="messages.length > 0"
+        >
+          <div
+            class="flex flex-col mt-5 px-5 overflow-y-auto h-full pb-16 scroll-smooth"
+            ref="chatbox"
+          >
             <div
-              class="mr-2 py-3 px-4 bg-white rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-primary-300"
+              class="flex mb-4"
+              v-for="m in messages"
+              :key="m.id"
+              :class="
+                m.is_user_message ? 'flex justify-start ' : 'flex justify-end '
+              "
             >
-              Welcome to group everyone !
-            </div>
-            <img
-              src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
-              class="object-cover h-8 w-8 rounded-full"
-              alt=""
-            />
-          </div>
-          <div class="flex justify-start mb-4">
-            <img
-              src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
-              class="object-cover h-8 w-8 rounded-full"
-              alt=""
-            />
-            <div
-              class="ml-2 py-3 px-4 bg-primary-300 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white"
-            >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-              at praesentium, aut ullam delectus odio error sit rem. Architecto
-              nulla doloribus laborum illo rem enim dolor odio saepe,
-              consequatur quas?
+              <div
+                class="mr-2 py-3 px-4"
+                :class="
+                  m.is_user_message
+                    ? 'rounded-br-xl rounded-tr-xl rounded-tl-xl text-primary-300 bg-white'
+                    : 'rounded-bl-xl rounded-tl-xl rounded-tr-xl  text-white bg-primary-300'
+                "
+              >
+                {{ m.message }}
+              </div>
             </div>
           </div>
-        </div>
-        <div class="py-5">
-          <input
-            class="w-full bg-white p-3 text-primary-300 outline-none rounded-xl"
-            type="text"
-            placeholder="type your message here..."
-          />
-        </div>
-      </div>
 
+          <div
+            class="flex absolute bg-white rounded-xl w-full bottom-0 left-0 shadow-md"
+          >
+            <input
+              class="w-full outline-none px-4 py-3 placeholder-gray-400"
+              type="text"
+              placeholder="type your message here..."
+              v-model="newMessage"
+              @keyup.enter="sendMessage"
+            />
+
+            <button
+              class="px-8 py-3 bg-primary-300 text-white rounded-r-xl"
+              @click="sendMessage"
+            >
+              Send
+            </button>
+          </div>
+        </div>
       </div>
-      </div>
+    </div>
   </div>
 </template>
 <script setup>
-import {ref, onMounted} from "vue";
-import firebaseServices from "../services/firebase.services";
-// import useFirebase from '../compasables/useFirebase'
-
-const allCollections = ref([])
-// const {fetchAllChat,allChats} = useFirebase()
-onMounted(()=>{
-  firebaseServices.getAllCollections().then(res => {
-    allCollections.value = res.data.data
-  })
-  // fetchAllChat(19)
-})
+import useChat from "../compasables/useChat";
+const { chats, newMessage, messages, getMessages, sendMessage, setActiveChat } =
+  useChat();
+import { nextTick, ref, watch } from "vue";
+const chatbox = ref(null);
+watch(
+  () => messages,
+  () => {
+    nextTick(() => {
+      chatbox.value.scrollTop = chatbox.value.scrollHeight;
+    });
+  },
+  { immediate: true, deep: true }
+);
+const selectChat = (user) => {
+  setActiveChat(user);
+  getMessages();
+};
 </script>
