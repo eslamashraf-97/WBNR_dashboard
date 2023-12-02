@@ -8,7 +8,15 @@
      />
     </div>
     <div>
+      <div>
+
+      </div>
+      <Button type="button" class="ml-6"  @click="$router.push('/chat')">
+        <img src="@/assets/images/chat.png" width="35" />
+      </Button>
+
       <Button type="button"  @click="toggle" aria-haspopup="true" aria-controls="overlay_menu">
+        <p class="text-2xl font-bold text-red-500">{{unread}}</p>
         <img src="@/assets/images/notification.gif" width="40" />
       </Button>
       <Menu ref="menu" id="overlay_menu" class="w-[17rem]" :model="items" :popup="true">
@@ -43,18 +51,27 @@ const router = useRouter()
 const menu = ref();
 const items = ref([
 ]);
+const unread = ref('');
 const allSelected = ref([])
 function getNotification() {
   services.getNotification().then(res => {
     items.value = res.data.data
   })
 }
+function getNotificationUnread() {
+  services.getNotificationUnread().then(res => {
+    unread.value = res.data.data
+  })
+}
+
 getNotification()
+getNotificationUnread()
 const toggle = (event) => {
   menu.value.toggle(event);
 };
 function changeItemStatus(item) {
   services.changeItemStatus(item.id)
+  unread.value--
   allSelected.value.push(item.id)
   if(item.type == 'order') {
     router.push({name:'orders', query: {id:item.id }})

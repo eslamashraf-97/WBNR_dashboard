@@ -14,6 +14,9 @@
 	  getNotification (page = 1) {
 		  return api().get(`admin/notifications?page=${page}`)
 	  },
+		getNotificationUnread (page = 1) {
+		  return api().get(`admin/notifications/unread-length`)
+	  },
 	  changeItemStatus (id) {
 		  return api().patch(`admin/notifications/mark-as-read/${id}`)
 	  }
