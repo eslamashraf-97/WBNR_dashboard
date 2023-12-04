@@ -73,7 +73,7 @@ async function changeItemStatus(item) {
     allSelected.value.push(item.id)
   }
   if(item.type == 'order') {
-    router.push({name:'orders', query: {id:item.id }})
+    router.push({name:'orders', query: {id:item.target_id }})
   }
 }
 </script>

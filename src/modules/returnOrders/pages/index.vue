@@ -146,12 +146,8 @@ const columnsProducts = [
 
 const status_text = ref({
   pending: 'قيد الانتظار',
-  confirmed: 'تأكيد',
-  processing: 'جارى التجهيز ',
-  cancelled: 'مرفوض',
-  shipping: 'جارى التوصيل',
   rejected: 'مرفوض',
-  delivered: 'تم الاستلام'
+  accepted: 'موافقة'
 })
 
 const showClientDetails = ref(false)
@@ -162,7 +158,7 @@ const selected = ref()
 const loading = ref(false)
 const loadingTable = ref(false)
 
-const status = ['pending', 'confirmed',  'processing', 'cancelled', 'shipping', 'rejected', 'delivered']
+const status = ['pending', 'accepted', 'rejected']
 function showDetails(data) {
   showClientDetails.value = true
   clientDetails.value = data
@@ -175,7 +171,7 @@ function showOrderDetails(data) {
 function changeStatus () {
   loading.value = true
   loadingTable.value = false
-  orderServices.changeStatus(orderDetails.value.id, {status: selected.value}).then(() => {
+  orderServices.changeStatus(orderDetails.value.id, {decision: selected.value}).then(() => {
     showOrderDetail.value = false
     loadingTable.value = true
   }).finally(() => {

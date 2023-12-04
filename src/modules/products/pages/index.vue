@@ -86,6 +86,10 @@ const columns = [
     field: 'product_unit'
   },
   {
+    header: 'اسم التاجر',
+    field: 'merchant_name'
+  },
+  {
     header: 'مفعل',
     field: 'active'
   }
