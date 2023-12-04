@@ -8,13 +8,9 @@
      />
     </div>
     <div>
-      <div>
-
-      </div>
       <Button type="button" class="ml-6"  @click="$router.push('/chat')">
         <img src="@/assets/images/chat.png" width="35" />
       </Button>
-
       <Button type="button"  @click="toggle" aria-haspopup="true" aria-controls="overlay_menu">
         <p class="text-2xl font-bold text-red-500">{{unread}}</p>
         <img src="@/assets/images/notification.gif" width="40" />
@@ -69,10 +65,13 @@ getNotificationUnread()
 const toggle = (event) => {
   menu.value.toggle(event);
 };
-function changeItemStatus(item) {
-  services.changeItemStatus(item.id)
-  unread.value--
-  allSelected.value.push(item.id)
+async function changeItemStatus(item) {
+//  console.log('item status item status item status => ' ,item);
+  if(!item.is_read) {
+    await services.changeItemStatus(item.id)
+    unread.value--
+    allSelected.value.push(item.id)
+  }
   if(item.type == 'order') {
     router.push({name:'orders', query: {id:item.id }})
   }
