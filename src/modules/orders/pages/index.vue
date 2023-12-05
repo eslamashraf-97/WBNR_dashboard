@@ -89,12 +89,6 @@
           <span class="text-green-500 cursor-pointer" @click="showDetails(data.client)">(تفاصيل)</span>
         </div>
       </template>
-      <template v-slot:tagger="{data}">
-        <div class="flex items-center gap-2 py-2">
-          <p>{{data.client.store_name}}</p>
-<!--          <span class="text-green-500 cursor-pointer" @click="showDetails(data.client)">(تفاصيل)</span>-->
-        </div>
-      </template>
       <template v-slot:status="{data}">
         <div class="flex items-center gap-2 py-2">
           <p :class="`status--${data.status}`">{{status_text[data.status]}}</p>
@@ -130,10 +124,6 @@ const columns = [
   {
     header: 'عدد المنتجات',
     field: 'orderItems'
-  },
-  {
-    header: 'التاجر',
-    field: 'tagger'
   },
   {
     header: 'السعر',
@@ -172,6 +162,10 @@ const columnsProducts = [
   {
     header: 'السعر النهائى',
     field: 'final_price'
+  },
+  {
+    header: 'سم التاجر',
+    field: 'third_party_seller_name'
   },
   {
     header: 'العدد',
