@@ -169,7 +169,7 @@ const columnsProducts = [
     field: 'final_price'
   },
   {
-    header: 'سم التاجر',
+    header: 'اسم التاجر',
     field: 'third_party_seller_name'
   },
   {
