@@ -87,7 +87,7 @@ const columns = [
   },
   {
     header: 'اسم التاجر',
-    field: 'merchant_name'
+    field: 'third_party_seller_name'
   },
   {
     header: 'مفعل',
