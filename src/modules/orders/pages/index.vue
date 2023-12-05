@@ -33,6 +33,11 @@
         <template v-slot:code="{data}">
           <p>{{data.product.code}}</p>
         </template>
+        <template v-slot:third_party_seller_name="{data}">
+          <div>
+            {{data.product.third_party_seller_name}}
+          </div>
+        </template>
       </main-table>
       <label class="mt-3 mb-2 text-gray-700 text-lg">اختر الحالة :</label>
       <div class="gap-4 grid grid-cols-4">
