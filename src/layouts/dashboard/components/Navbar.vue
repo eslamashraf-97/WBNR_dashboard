@@ -68,6 +68,7 @@ const toggle = (event) => {
 async function changeItemStatus(item) {
 //  console.log('item status item status item status => ' ,item);
   if(!item.is_read) {
+    item.is_read = true
     await services.changeItemStatus(item.id)
     unread.value--
     allSelected.value.push(item.id)
