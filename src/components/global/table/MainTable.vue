@@ -157,7 +157,7 @@ watch(() => props.loadingTable, (val) => {
 })
 watch(() => props.filters, (val) => {
   if(val) {
-    getDataFromServer({page :  1})
+    getDataFromServer({page :  0})
   }
 }, {
   deep: true
@@ -170,7 +170,6 @@ function changeLimit(data) {
   getDataFromServer({page: 0}, data.value)
 }
 function getDataFromServer({page = 0 }, limit = 10 ) {
-  console.log(props.filters)
   loadingTableFromServer.value = true
   mainServices.listDataTabl(props['list_url'], {
     page: page ? page + 1 : 1,
