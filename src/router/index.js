@@ -15,6 +15,7 @@ import returnedOrderRoutes from "@/modules/returnOrders/order.routes";
 import walletRoutes from "@modules/wallet/wallet.routes";
 import chatRoutes from "@modules/chat/chat.routes";
 import faqRoutes from "@modules/faq/faq.routes";
+import bannerRoutes from "@modules/banners/banner.routes";
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,7 +40,8 @@ const router = createRouter({
 				...returnedOrderRoutes,
 				...walletRoutes,
 				...chatRoutes,
-				...faqRoutes
+				...faqRoutes,
+				...bannerRoutes
 			],
 			meta: {
 				requireAuth: true,

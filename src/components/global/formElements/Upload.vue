@@ -68,6 +68,10 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  resetAfterLoad: {
+    type: Boolean,
+    default: false
+  },
   video: {
     type: Boolean,
     default: false
@@ -76,9 +80,9 @@ const props = defineProps({
     type: String,
   }
 })
-const imageUrl = ref(props.imageValue || '')
+let imageUrl = ref(props.imageValue || '')
 const imageBack = ref('')
-const progressBar = ref(false)
+let progressBar = ref(false)
 const emit = defineEmits(['upload'])
 const line = ref('')
 function previewAttachemnt (e) {
@@ -99,7 +103,12 @@ function previewAttachemnt (e) {
   mainServices.uploadImage(fd, config).then(res => {
     // console.log('res ', res.data.url)
     // imageUrl.value = res.data.full_url
-    imageUrl.value = res.data.url
+    if(!props.resetAfterLoad) {
+      imageUrl.value = res.data.url
+    } else {
+      progressBar.value = 0
+      fd.delete('image')
+    }
     // debugger
     console.log('res.data.url', res.data.url)
     emit('upload', res.data.url)

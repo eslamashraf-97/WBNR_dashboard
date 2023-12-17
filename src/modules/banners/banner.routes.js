@@ -1,7 +1,7 @@
 import index from './pages/index.vue';
 
 export default [{
-    name: 'categories',
-    path: '/categories',
+    name: 'banners',
+    path: '/banners',
     component: index
 }]
