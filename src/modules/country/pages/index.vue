@@ -12,7 +12,7 @@
         </div>
       </template>
       <template v-slot:active="{data}">
-        <InputSwitch v-model="data.status" true-value="active" @change="toggle(data.id, data.status)"/>
+        <InputSwitch  v-if="$hasPer('countries:update')" v-model="data.status" true-value="active" @change="toggle(data.id, data.status)"/>
       </template>
     </main-table>
 

@@ -3,16 +3,33 @@
     <Dialog v-model:visible="visible" maximizable  modal :header="'إضافة منتج'" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
       <productDetails @finish="loadingTable = true; visible = false" :details="details"/>
     </Dialog>
-    <div class="flex justify-between items-center mb-10 border-b-2 pb-3">
-      <h5 class="text-md mb-4">المنتجات</h5>
-      <app-button v-if="$hasPer('products:create')" submit-title="إضف منتج جديد" class="rounded-lg font-medium !py-3" @click="visible = true">
-        <template v-slot:icon>
-          +
-        </template>
-      </app-button>
+    <div class="mb-4">
+      <div class="flex justify-between items-center border-b-2 pb-3 mb-4">
+        <h5 class="text-md mb-4">المنتجات</h5>
+        <app-button v-if="$hasPer('products:create')" submit-title="إضف منتج جديد" class="rounded-lg font-medium !py-3" @click="visible = true">
+          <template v-slot:icon>
+            +
+          </template>
+        </app-button>
+      </div>
+      <div>
+        <p>تصفية :</p>
+        <div class="flex gap-4">
+        <input type="text"  placeholder="بحث باسم المنتج" class="filterInput w-full" v-model="filter.title" />
+        <Dropdown
+          class="w-full"
+          :options="countries"
+          optionLabel="name"
+          optionValue="id"
+          :inputClass="`max-w-full capitalize h-[47px]`"
+          placeholder="اختر البلد"
+          v-model="filter.country_id"
+        >
+        </Dropdown>
+        </div>
+      </div>
     </div>
-
-    <main-table actionDots :list_url="'admin/products'" :loadingTable="loadingTable" :actions="actions"  :columns="columns">
+    <main-table actionDots :list_url="'admin/products'" :loadingTable="loadingTable" :actions="actions" :filters="filter"  :columns="columns">
       <template v-slot:img="{data}">
         <div class="flex items-center gap-2 py-2">
           <Avatar :image="data.featured_image" size="large" shape="circle" />
@@ -43,10 +60,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from "vue";
 import Avatar  from 'primevue/avatar'
 import productDetails from '../components/ProductDetails.vue'
 import productService from "../services/product.services";
+import { useCountries } from "../../country/composables";
 
 const loadingTable = ref(false)
 const columns = [
@@ -118,6 +136,8 @@ const actions = [
 
 const details = ref({})
 const visible = ref(false)
+const filter = ref({title: null, country_id: null})
+const { countries } = useCountries()
 function toggle(id, status) {
   productService.switchStatus(id, status ? true : false)
 }

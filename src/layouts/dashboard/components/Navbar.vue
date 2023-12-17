@@ -38,10 +38,11 @@
   </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import Menu from "primevue/menu";
 import services from "@/services";
 import {useRouter} from "vue-router";
+import { getMessaging, onMessage } from "firebase/messaging";
 
 const router = useRouter()
 const menu = ref();
@@ -77,6 +78,13 @@ async function changeItemStatus(item) {
     router.push({name:'orders', query: {id:item.target_id }})
   }
 }
+onMounted(() => {
+  const messaging = getMessaging();
+  onMessage(messaging, (payload) => {
+    console.log('payload', payload);
+    items.value = [payload.notification, ...items.value];
+  });
+});
 </script>
 <style>
 .p-menu-list {

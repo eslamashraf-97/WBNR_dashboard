@@ -12,10 +12,10 @@
       <MainSelect :options="allCategories" name="category_id" validation="required" optionLabel="name" optionValue="id" placeholder="اختر القسم"/>
       <MainSelect :options="countries" name="country_id" optionLabel="name" optionValue="id"  validation="required" placeholder="اختر البلد"/>
       <div class="col-span-2 mb-6">
-        <Upload name="featured_image" label="الصورة الرئيسية" @upload="uploadImage"/>
+        <Upload name="featured_image" label="الصورة الرئيسية" @upload="uploadImage"  :imageValue="featured_image"/>
       </div>
       <div class="col-span-2 flex flex-wrap gap-2 overflow-hidden">
-        <Upload name="images" :label="` صوره ${key + 1}`" v-for="(item, key) in images" :key="key" @upload="uploadMultiImage" @deleteImage="deleteImage"/>
+        <Upload name="images" :label="` صوره ${key + 1}`" v-for="(item, key) in images" :imageValue="item.url" :key="key" @upload="uploadMultiImage" @deleteImage="deleteImage"/>
         <section class="relative cursor-pointer md:w-[216px] h-[132px] rounded-xl border-2 border-mutedColor border-dashed flex items-center justify-center flex-col" @click="addNewImage">
             <div class="flex flex-col items-center">
               <p class="text-gray-300 text-md mt-2 w-100 text-center font-semibold">
@@ -25,7 +25,10 @@
         </section>
       </div>
 
-      <InputField class="col-span-2" type="text" validation="" placeholder="لينك فيديو" name="video"/>
+      <div class="col-span-2 mb-6 my-5">
+        <label class="capitalize p-0 font-semibold font-14 text-text-700 mb-4" >رفع فيديو</label>
+        <Upload name="video" video label="ارفع فيديو" @upload="uploadVideo" :imageValue="video"/>
+      </div>
 
       <div class="my-2 col-span-2">
         <label class="text-black text-lg">خصائص المنتج</label>
@@ -98,14 +101,32 @@
       <label :for="id" class="capitalize p-0 font-semibold font-14 text-text-700" >شرح المنتج</label>
       <MainTextarea class="col-span-2" name="catalog" plceholder="شرح المنتج"></MainTextarea>
     </div>
+    <Field v-slot="{ field }" name="is_favorite" type="checkbox" value="true">
+      <label class="flex gap-2">
+        <div class="checkbox-wrapper-45">
+          <input type="checkbox" name="terms" :id="'is_favorite'" v-bind="field" value="true" />
+          <label class="cbx" :for="'is_favorite'">
+            <div class="flip">
+              <div class="front"></div>
+              <div class="back">
+                <svg width="14" height="12" viewBox="0 0 16 14">
+                  <path d="M2 8.5L6 12.5L14 1.5"></path>
+                </svg>
+              </div>
+            </div>
+          </label>
+        </div>
+        منتج مرشح
+      </label>
+    </Field>
     <div class="sign-up__button-action mt-4">
       <AppButton class="" type="submit" :loading="loading" submit-title="حفظ المنتج"></AppButton>
     </div>
   </ValidationForm>
 </template>
 <script setup>
-import { ref, watch } from 'vue'
 
+import { ref, watch } from 'vue'
 import MainSelect from "@/components/global/formElements/MainSelect.vue"
 import MainTextarea from "@/components/global/formElements/MainTextarea.vue"
 import Upload from "@/components/global/formElements/Upload.vue"
@@ -116,8 +137,8 @@ import categoryServices from "@modules/category/services/category.services";
 const { countries } = useCountries()
 const props = defineProps(['details'])
 const emit = defineEmits(['finish'])
-
 let featured_image = props.details?.featured_image || ''
+let video =  ref(props.details?.video || '')
 let images = ref(props.details?.images || [
   {
     url: ''
@@ -126,8 +147,11 @@ let loading = ref(false)
 const allCategories = ref([])
 
 function deleteImage(image) {
-  let ind = images.findIndex(data => data === image)
-  images.splice(ind, 1)
+  console.log(images.value)
+  console.log(image);
+  let ind = images.value.findIndex(data => data === image)
+  console.log('ind => ' ,ind);
+  images.value.splice(ind, 1)
 }
 function getAllCategory () {
   categoryServices.getAllCategory().then(res => {
@@ -136,31 +160,41 @@ function getAllCategory () {
 }
 getAllCategory()
 function addNewImage () {
-  console.log(images.value)
-  if(images.value[images.value.length - 1 ].url) {
-    images.value.push(
+  if(images.value.length) {
+    if(images.value[images.value.length - 1 ].url) {
+      images.value.push(
         {
           url: ''
         }
+      )
+    }
+  } else {
+    images.value.push(
+      {
+        url: ''
+      }
     )
   }
 }
 function uploadImage (val) {
-  featured_image = val
+  featured_image.value = val
 }
 function uploadMultiImage (val) {
   images.value[images.value.length - 1 ].url = val
 }
+function uploadVideo (val) {
+  video.value = val
+}
 function onsubmit (values) {
   loading.value = true
   if (Object.keys(props.details).length !== 0) {
-    productServices.editProduct({...values, images: images.value, featured_image: featured_image, unit_id: "1" }).then(res => {
+    productServices.editProduct({...values, images: images.value, featured_image: featured_image.value, video: video.value, unit_id: "1" }).then(res => {
       emit('finish')
     }).finally(()=>{
       loading.value = false
     })
   } else {
-    productServices.createProduct({...values, images: images.value, featured_image: featured_image, unit_id: "1" }).then(res => {
+    productServices.createProduct({...values, images: images.value, featured_image: featured_image.value, video: video.value, unit_id: "1" }).then(res => {
       emit('finish')
     }).finally(()=>{
       loading.value = false
@@ -168,9 +202,10 @@ function onsubmit (values) {
   }
 }
 watch(() => props.details, (data) => {
-  images.value = data.images
-
+  images.value = data.images.map(im => im.url)
+  video.value = data.video.url
 });
+
 </script>
 <style>
 

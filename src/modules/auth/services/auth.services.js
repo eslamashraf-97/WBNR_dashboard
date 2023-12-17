@@ -5,5 +5,8 @@ export default {
     },
     getInfo () {
         return api().get('admin/who-am-i')
+    },
+    sendFcmToken (data) {
+        return api().post(`customer/profile/post-token`, data)
     }
 }

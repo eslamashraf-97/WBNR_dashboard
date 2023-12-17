@@ -12,12 +12,12 @@
           <h5 class="border-b text-center border-primary-200">All User</h5>
           <!-- user list -->
           <div
-            class="flex flex-row py-4 px-2 justify-center items-center border-b"
+            class="flex flex-row justify-center items-center border-b"
             v-for="(user, key) in chats"
             :key="key"
           >
-            <button class="w-full" @click="selectChat(user)">
-              <div class="text-lg font-semibold">user {{ user }}</div>
+            <button class="w-full" @click="selectChat(user.id)">
+              <div :class="['text-lg py-4 px-2  text-left font-semibold', {'border-r-4 border-primary-300 bg-primary-100' : user.id == activeChat }]">{{ user.name }}</div>
             </button>
           </div>
           <!-- end user list -->
@@ -79,6 +79,7 @@
 </template>
 <script setup>
 import useChat from "../compasables/useChat";
+const activeChat = ref(null)
 const { chats, newMessage, messages, getMessages, sendMessage, setActiveChat } =
   useChat();
 import { nextTick, ref, watch } from "vue";
@@ -95,5 +96,6 @@ watch(
 const selectChat = (user) => {
   setActiveChat(user);
   getMessages();
+  activeChat.value = user
 };
 </script>

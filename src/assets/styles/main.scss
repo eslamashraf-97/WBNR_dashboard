@@ -102,3 +102,23 @@ $status-list:(
 .flag {
 	width: 40px;
 }
+.filterInput{
+	@apply border border-solid  p-3 ;
+	font-size: 14px;
+	border-radius: 10px;
+	&:hover {
+		border-color: theme('colors.primary.300') !important;
+	}
+
+	&:focus {
+		border-color: theme('colors.primary.200');
+		box-shadow: none !important;
+	}
+
+	&::placeholder {
+		color: theme('colors.gray.700');
+	}
+	&:enabled:focus {
+		border-color: theme('colors.primary.300');
+	}
+}

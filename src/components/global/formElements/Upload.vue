@@ -1,7 +1,13 @@
 <template>
   <div class="flex flex-col gap-4 md:w-[216px]">
-    <div v-if="imageUrl" @click="imageUrl= ''; progressBar = false, $emit('deleteImage', imageUrl)"  class="relative cursor-pointer w-100 md:w-[216px] !h-[132px] w-100 rounded-xl border-2 border-mutedColor border-dashed bg-center	 flex-col bg-contain bg-no-repeat	" :style="{ backgroundImage: 'url(' + imageUrl + ')' }">
+    <div v-if="imageUrl && !video" @click="imageUrl= ''; progressBar = false, $emit('deleteImage', imageUrl)"  class="relative cursor-pointer w-100 md:w-[216px] !h-[132px] w-100 rounded-xl border-2 border-mutedColor border-dashed bg-center	 flex-col bg-contain bg-no-repeat	" :style="{ backgroundImage: 'url(' + imageUrl + ')' }">
       <div class="delete_box shadow">
+        <i class="pi pi-trash text-white" />
+      </div>
+    </div>
+    <div v-else-if="imageUrl && video"  class="relative cursor-pointer w-100 md:w-[400px] w-100 rounded-xl border-2  bg-center	 flex-col bg-contain bg-no-repeat	">
+      <video :src="imageUrl" controls/>
+      <div class="delete_box shadow" @click="imageUrl= ''; progressBar = false, $emit('deleteImage', imageUrl)">
         <i class="pi pi-trash text-white" />
       </div>
     </div>
@@ -46,14 +52,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from "vue";
 import mainServices from '@/services/index.js'
 
 const file = ref('file')
-const imageUrl = ref('')
-const imageBack = ref('')
-const progressBar = ref(false)
-const emit = defineEmits(['upload'])
 const props = defineProps({
   label: {
     type: String
@@ -65,8 +67,19 @@ const props = defineProps({
   required: {
     type: Boolean,
     default: false
+  },
+  video: {
+    type: Boolean,
+    default: false
+  },
+  imageValue : {
+    type: String,
   }
 })
+const imageUrl = ref(props.imageValue || '')
+const imageBack = ref('')
+const progressBar = ref(false)
+const emit = defineEmits(['upload'])
 const line = ref('')
 function previewAttachemnt (e) {
   const fd = new FormData()
@@ -101,7 +114,6 @@ function createAttachemnt (file) {
   var reader = new FileReader()
   reader.readAsDataURL(file)
 }
-
 </script>
 
 <style>

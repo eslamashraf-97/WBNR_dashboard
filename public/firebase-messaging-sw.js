@@ -1,6 +1,5 @@
-import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
-import { getMessaging, getToken } from "firebase/messaging";
+importScripts('https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js')
+importScripts('https://www.gstatic.com/firebasejs/8.2.7/firebase-messaging.js')
 
 const firebaseConfig = {
   apiKey: "AIzaSyDs3KvHilOfojecJnTmJifN0KxEOxl5UNI",
@@ -12,9 +11,4 @@ const firebaseConfig = {
   measurementId: "G-02319K2TSP"
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
-export const token = getToken(getMessaging(firebaseApp));
-export const db = getFirestore(firebaseApp);
-
-
-
+const app = firebase.initializeApp(firebaseConfig);

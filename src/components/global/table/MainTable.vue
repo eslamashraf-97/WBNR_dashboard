@@ -7,7 +7,13 @@
     >
 
       <template #empty>
-        <p> لا يوجد معلومات </p>
+        <div v-if="loadingTableFromServer">
+          <Skeleton height="2rem" class="mb-2"></Skeleton>
+          <Skeleton height="2rem" class="mb-2"></Skeleton>
+          <Skeleton height="2rem" class="mb-2"></Skeleton>
+          <Skeleton height="2rem" class="mb-2"></Skeleton>
+        </div>
+        <p v-else> لا يوجد معلومات </p>
       </template>
 
       <template #paginatorprevpagelinkicon>
@@ -153,6 +159,8 @@ watch(() => props.filters, (val) => {
   if(val) {
     getDataFromServer({page :  1})
   }
+}, {
+  deep: true
 })
 watch(() => props.list_data, (val) => {
   allItems.value = val

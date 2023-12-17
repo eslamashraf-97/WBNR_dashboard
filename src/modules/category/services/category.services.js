@@ -8,5 +8,8 @@ export default {
     },
     editCategory (payload) {
         return api().patch(`admin/product-category/${payload.id}`, payload)
+    },
+    getAllIcons () {
+        return api().get('admin/icons')
     }
 }
