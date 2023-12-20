@@ -25,7 +25,7 @@
     <Dialog v-model:visible="showOrderDetail" maximizable  modal :header="'تفاصيل الطلب'" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
       <main-table :show-actions="false" :loading-table="loadingTable" :list_data="orderDetails.orderItems" :columns="columnsProducts">
         <template v-slot:product="{data}">
-          <div class="flex items-center gap-2 py-2">
+          <div class="flex items-center gap-2 py-2 !max-w-max">
             <Avatar :image="data.product.featured_image" size="large" shape="circle" />
             {{data.product.title}}
           </div>
@@ -51,21 +51,51 @@
       </div>
     </Dialog>
 
-    <div class="flex justify-between items-center mb-10 border-b-2 pb-3">
-      <h5 class="text-md mb-4">الطلبات</h5>
+    <div class="flex justify-between items-center mb-4 border-b-2 pb-3">
+      <h5 class="text-md">الطلبات</h5>
     </div>
-    <main-table :filters="$route.query" :showActions="false" :loading-table="loadingTable" :list_url="'admin/orders'" :columns="columns">
+    <div class="mb-4">
+      <p>تصفية :</p>
+      <div class="flex gap-4">
+        <input type="text"  placeholder="بحث برقم الطلب" class="filterInput w-full" v-model="filter.order_number" />
+        <Dropdown
+          class="w-full"
+          :options="countries"
+          optionLabel="name"
+          optionValue="id"
+          :inputClass="`max-w-full capitalize h-[47px]`"
+          placeholder="اختر البلد"
+          v-model="filter.country_id"
+        >
+        </Dropdown>
+        <Dropdown
+          class="w-full"
+          :options="status"
+          :inputClass="`max-w-full capitalize h-[47px]`"
+          placeholder="اختر الحالة"
+          v-model="filter.status"
+        >
+          <template v-slot:option="data">
+            {{status_text[data.option]}}
+          </template>
+          <template v-slot:value="data">
+            {{ data.value? status_text[data.value] : 'اختر الحالة'}}
+          </template>
+        </Dropdown>
+      </div>
+    </div>
+    <main-table :filters="{...$route.query, ...filter}" :showActions="false" :loading-table="loadingTable" :list_url="'admin/orders'" :columns="columns">
       <template v-slot:orderItems="{data}">
         <p>{{data.orderItems.length}}</p>
       </template>
       <template v-slot:country="{data}">
-        <div class="flex items-center gap-2 py-2">
+        <div class="flex items-center gap-2 py-2 w-max">
           <img class="flag" :src="data.country.image">
           <p>{{data.country.name}}</p>
         </div>
       </template>
       <template v-slot:price="{data}">
-        <div class="flex items-center gap-2 py-2">
+        <div class="flex items-center gap-2 py-2 max-w-max">
           <p>{{data.price}}</p>
           <span>{{data.country.currency}}</span>
         </div>
@@ -103,7 +133,6 @@
         <app-button class="border border-primary-300 !text-primary-300 !bg-white" v-if="$hasPer('orders:update')" submit-title="تفاصيل الطلب" @click="showOrderDetails(data)"/>
       </template>
     </main-table>
-
   </Box>
 </template>
 
@@ -112,7 +141,7 @@ import { ref } from 'vue'
 import AppButton from "@/components/global/AppButton.vue";
 import Avatar from "primevue/avatar";
 import orderServices from "@modules/orders/services/order.services";
-
+import { useCountries } from "../../country/composables";
 const columns = [
   {
     header: 'رقم الطلب',
@@ -124,7 +153,8 @@ const columns = [
   },
   {
     header: 'البلد',
-    field: 'country'
+    field: 'country',
+    class:'text-center'
   },
   {
     header: 'عدد المنتجات',
@@ -177,7 +207,12 @@ const columnsProducts = [
     field: 'quantity'
   }
 ]
-
+const filter = ref({
+  order_number: null,
+  country_id: null,
+  status: null
+});
+const { countries } = useCountries()
 const showClientDetails = ref(false)
 const showOrderDetail = ref(false)
 const clientDetails = ref({})
@@ -191,7 +226,7 @@ const status = ['pending', 'confirmed',  'processing', 'cancelled', 'shipping', 
 const status_text = ref({
   pending: 'قيد الانتظار',
   confirmed: 'تأكيد',
-  processing: 'جارة التجهيز ',
+  processing: 'جارى التجهيز ',
   cancelled: 'ملغاه',
   shipping: 'جارى التوصيل',
   rejected: 'مرفوض',

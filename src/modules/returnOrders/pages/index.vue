@@ -83,6 +83,11 @@
           <p :class="`status--${data.status}`">{{status_text[data.status]}}</p>
         </div>
       </template>
+      <template v-slot:type="{data}">
+        <div class="flex items-center gap-2 py-2">
+          <p>{{type_text[data.type]}}</p>
+        </div>
+      </template>
     </main-table>
 
   </Box>
@@ -111,7 +116,6 @@ const columns = [
     header: 'عدد المنتجات',
     field: 'orderItems'
   },
-
   {
     header: 'السعر النهائى',
     field: 'final_price'
@@ -119,6 +123,10 @@ const columns = [
   {
     header: 'حالة الأوردر',
     field: 'status'
+  },
+  {
+    header: 'النوع',
+    field: 'type'
   },
   {
     header: '',
@@ -149,7 +157,10 @@ const status_text = ref({
   rejected: 'مرفوض',
   accepted: 'موافقة'
 })
-
+const type_text = ref({
+  refund: 'استرداد',
+  exchange: 'تبديل'
+})
 const showClientDetails = ref(false)
 const showOrderDetail = ref(false)
 const clientDetails = ref({})

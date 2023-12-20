@@ -46,14 +46,12 @@ export default function useChat () {
     activeChat.value = id;
   };
 
-
   const getFirstChat = async () => {
     await getCollectinos();
     setActiveChat(chats.value[ 0 ]);
     getMessages();
   };
   getFirstChat();
-
 
   return {
     chats,
@@ -63,5 +61,4 @@ export default function useChat () {
     sendMessage,
     setActiveChat
   };
-
 }

@@ -122,3 +122,6 @@ $status-list:(
 		border-color: theme('colors.primary.300');
 	}
 }
+table td, table th {
+	white-space: nowrap;
+}

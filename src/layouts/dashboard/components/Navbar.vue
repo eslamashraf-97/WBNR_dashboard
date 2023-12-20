@@ -2,8 +2,8 @@
   <div class="bg-white fixed w-full z-10 top-0 shadow-nav flex justify-between items-center gap-2 py-2 px-10">
     <div class="flex gap-2 w-100">
       <img
-          class="w-auto"
-          src="@/assets/images/logo/logo.png"
+          class="w-[180px]"
+          src="@/assets/images/myr-logo.svg"
           alt=""
      />
     </div>

@@ -11,8 +11,24 @@
         </template>
       </app-button>
     </div>
+    <div class="mb-4">
+      <p>تصفية :</p>
+      <div class="flex gap-4">
+        <input type="text"  placeholder="بحث باسم المحافظه" class="filterInput w-full" v-model="filter.name" />
+        <Dropdown
+          class="w-full"
+          :options="countries"
+          optionLabel="name"
+          optionValue="id"
+          :inputClass="`max-w-full capitalize h-[47px]`"
+          placeholder="اختر البلد"
+          v-model="filter.country_id"
+        >
+        </Dropdown>
+      </div>
+    </div>
 
-    <main-table actionDots :list_url="'admin/governorates'" :loadingTable="loadingTable" :actions="actions"  :columns="columns">
+    <main-table actionDots :filters="filter" :list_url="'admin/governorates'" :loadingTable="loadingTable" :actions="actions"  :columns="columns">
       <template v-slot:name="{data}">
         <div class="flex items-center gap-2 py-2">
           <img class="flag" :src="data.country.image">
@@ -34,8 +50,11 @@
 import { ref } from 'vue'
 import Avatar  from 'primevue/avatar'
 import productDetails from '../components/GovernorateDetails.vue'
+import { useCountries } from "../../country/composables";
 
+const { countries } = useCountries()
 const loadingTable = ref(false)
+
 const columns = [
   {
     header: 'اسم المحافظة',
@@ -67,8 +86,10 @@ const actions = [
     })
   }
 ]
-
 const details = ref({})
 const visible = ref(false)
-
+const filter = ref({
+  country_id: null,
+  name: null
+});
 </script>

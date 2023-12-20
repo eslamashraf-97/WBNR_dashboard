@@ -10,7 +10,7 @@
           <div :class="['border w-full text-center py-3 rounded-md', {'bg-primary-200 text-primary-300': selected == item}]">{{ status_text[item] }}</div>
         </div>
       </div>
-
+      <textarea v-model="reason" class="w-full mt-4" placeholder="ملحوظة"></textarea>
       <div class="flex justify-center mt-5">
         <app-button submit-title="حفط التغييرات" :loading="loading" type="button" @click="changeStatus"/>
       </div>
@@ -65,6 +65,7 @@ const columns = [
 
 const showOrderDetail = ref(false)
 const details = ref()
+const reason = ref()
 const selected = ref()
 const loading = ref(false)
 const loadingTable = ref(false)

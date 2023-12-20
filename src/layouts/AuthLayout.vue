@@ -3,8 +3,9 @@
 		<nav class="p-10 pt-16 flex justify-around flex-wrap">
 			<div>
 				<img
-					src="@/assets/images/logo/logo.png"
+					src="@/assets/images/myr-logo.svg"
           alt="wbnr"
+          class="w-[150px]"
 				/>
 			</div>
 		</nav>
