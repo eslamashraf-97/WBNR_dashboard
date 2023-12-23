@@ -11,6 +11,7 @@
         </div>
       </div>
       <textarea v-model="reason" class="w-full mt-4" placeholder="ملحوظة"></textarea>
+      <Upload name="invoice_path" label="ارفع الفاتوره" @upload="uploadImage"  :imageValue="featured_image"/>
       <div class="flex justify-center mt-5">
         <app-button submit-title="حفط التغييرات" :loading="loading" type="button" @click="changeStatus"/>
       </div>
@@ -38,6 +39,7 @@
 import { ref } from 'vue'
 import AppButton from "@/components/global/AppButton.vue";
 import walletServices from "@modules/wallet/services/wallet.services";
+import Upload from "@/components/global/formElements/Upload.vue"
 
 const columns = [
   {
@@ -76,15 +78,21 @@ const status_text = ref({
   accepted: "مقبولة",
   cancelled: 'ملغية',
 })
+const invoice_path = ref()
+const invoice_path_url = ref()
+function uploadImage (val) {
+  invoice_path.value = val
+}
 function showOrderDetails(data) {
   showOrderDetail.value = true
   details.value = data
   selected.value = data.status
+  invoice_path_url.value = data.invoice_path
 }
 function changeStatus () {
   loading.value = true
   loadingTable.value = false
-  walletServices.changeStatus(details.value.id, {new_status: selected.value}).then(() => {
+  walletServices.changeStatus(details.value.id, {new_status: selected.value, invoice_path: invoice_path.value, reason: reason.value}).then(() => {
     showOrderDetail.value = false
     loadingTable.value = true
   }).finally(() => {

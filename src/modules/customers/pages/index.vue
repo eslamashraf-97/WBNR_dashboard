@@ -6,7 +6,11 @@
 
     <main-table :showActions="false" :list_url="'admin/customers'" :columns="columns">
       <template v-slot:status="{data}">
-          <p :class="`status--${data.status}`"> {{ status[data.status] }} </p>
+          <p class="status--deactive" v-if="!data.status"> {{ status['deactive'] }} </p>
+          <p v-else :class="`status--${data.status}`"> {{ status[data.status] }} </p>
+      </template>
+      <template v-slot:active="{data}">
+        <InputSwitch  v-if="$hasPer('countries:update')" v-model="data.status" true-value="active" @change="toggle(data.id, data.status)"/>
       </template>
     </main-table>
 
@@ -16,6 +20,7 @@
 <script setup>
 import { ref } from 'vue'
 import InputSwitch from 'primevue/inputswitch';
+import customerServices from "../services/customer.services";
 
 const columns = [
   {
@@ -41,6 +46,10 @@ const columns = [
   {
     header: 'الحالة',
     field: 'status'
+  },
+  {
+    header: 'مفعل',
+    field: 'active'
   }
 ]
 const status= {
@@ -50,4 +59,7 @@ const status= {
 
 const details = ref({})
 const visible = ref(true)
+function toggle(id, status) {
+  customerServices.switchStatus(id, status ? 'active' : 'deactive')
+}
 </script>
