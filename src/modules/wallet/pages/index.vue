@@ -25,6 +25,9 @@
       <template v-slot:changeStatus="{data}">
         <app-button class="border border-primary-300 !text-primary-300 !bg-white" submit-title="تفاصيل الطلب" @click="showOrderDetails(data)"/>
       </template>
+      <template v-slot:customer="{data}">
+        {{data?.customer?.name}}
+      </template>
       <template v-slot:status="{data}">
         <div class="flex items-center gap-2 py-2">
           <p :class="`status--${data.status}`">{{status_text[data.status]}}</p>
@@ -49,6 +52,10 @@ const columns = [
   {
     header: 'نوع المعاملة',
     field: 'type'
+  },
+  {
+    header: 'العميل',
+    field: 'customer'
   },
   {
     header: 'السعر',
