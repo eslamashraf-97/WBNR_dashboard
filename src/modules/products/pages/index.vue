@@ -6,7 +6,7 @@
     <div class="mb-4">
       <div class="flex justify-between items-center border-b-2 pb-3 mb-4">
         <h5 class="text-md mb-4">المنتجات</h5>
-        <app-button v-if="$hasPer('products:create')" submit-title="إضف منتج جديد" class="rounded-lg font-medium !py-3" @click="visible = true">
+        <app-button v-if="$hasPer('products:create')" submit-title="إضف منتج جديد" class="rounded-lg font-medium !py-3" @click="visible = true; details={}">
           <template v-slot:icon>
             +
           </template>

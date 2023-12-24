@@ -137,7 +137,7 @@ import categoryServices from "@modules/category/services/category.services";
 const { countries } = useCountries()
 const props = defineProps(['details'])
 const emit = defineEmits(['finish'])
-let featured_image = props.details?.featured_image || ''
+let featured_image = ref(props.details?.featured_image || '')
 let video =  ref(props.details?.video || '')
 let images = ref(props.details?.images || [
   {
