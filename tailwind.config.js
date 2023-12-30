@@ -15,6 +15,7 @@ const colors = {
 		300: "#B1B1B5",
 		200: "#D8D8DA",
 		100: "#F9FAFA",
+		50: "#f6f6f6",
 	},
 	secondary: {
 		300: "#EEDC53",

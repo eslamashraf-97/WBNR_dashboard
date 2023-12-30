@@ -78,12 +78,12 @@ const reason = ref()
 const selected = ref()
 const loading = ref(false)
 const loadingTable = ref(false)
-const status = ref(["pending", "denied", "accepted", "cancelled"])
+const status = ref(["pending", "denied", "accepted", "canceled"])
 const status_text = ref({
   pending: 'قيد الانتظار',
   denied: 'مرفوضة',
   accepted: "مقبولة",
-  cancelled: 'ملغية',
+  canceled: 'ملغية',
 })
 const invoice_path = ref()
 const invoice_path_url = ref()

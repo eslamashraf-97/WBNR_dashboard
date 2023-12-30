@@ -40,7 +40,7 @@
           <div :class="['border w-full text-center py-3 rounded-md', {'bg-primary-200 text-primary-300': selected == item}]">{{ status_text[item] }}</div>
         </div>
       </div>
-
+      <textarea v-model="reason" class="w-full mt-4" placeholder="ملحوظة"></textarea>
       <div class="flex justify-center mt-5">
         <app-button submit-title="حفط التغييرات" :loading="loading" type="button" @click="changeStatus"/>
       </div>
@@ -97,7 +97,7 @@
 import { ref } from 'vue'
 import AppButton from "@/components/global/AppButton.vue";
 import Avatar from "primevue/avatar";
-import orderServices from "@modules/orders/services/order.services";
+import orderServices from "@modules/returnOrders/services/order.services";
 
 const columns = [
   {
@@ -169,12 +169,15 @@ const selected = ref()
 const loading = ref(false)
 const loadingTable = ref(false)
 
+const reason = ref('')
+
 const status = ['pending', 'accepted', 'rejected']
 function showDetails(data) {
   showClientDetails.value = true
   clientDetails.value = data
 }
 function showOrderDetails(data) {
+  reason.value = ''
   showOrderDetail.value = true
   orderDetails.value = data
   selected.value = data.status
@@ -182,7 +185,7 @@ function showOrderDetails(data) {
 function changeStatus () {
   loading.value = true
   loadingTable.value = false
-  orderServices.changeStatus(orderDetails.value.id, {decision: selected.value}).then(() => {
+  orderServices.changeStatus(orderDetails.value.id, {decision: selected.value, reason: reason.value}).then(() => {
     showOrderDetail.value = false
     loadingTable.value = true
   }).finally(() => {

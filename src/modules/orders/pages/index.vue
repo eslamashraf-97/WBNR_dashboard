@@ -39,7 +39,13 @@
           </div>
         </template>
       </main-table>
-      <label class="mt-3 mb-2 text-gray-700 text-lg">اختر الحالة :</label>
+      <div class="bg-gray-50 rounded-md my-4 p-3" v-if="orderDetails.statusHistories.length">
+        <h5 class="text-lg">الحالات السابقة</h5>
+        <p v-for="(i, key) in orderDetails.statusHistories" :key="key" class="mb-2">
+          {{status_text[i.status]}} : {{i.reason ? i.reason : 'لا يوجد تعليق'}}
+        </p>
+      </div>
+      <label class="mb-2 text-gray-700 text-lg">اختر الحالة :</label>
       <div class="gap-4 grid grid-cols-4">
         <div :class="['col-span-1 overflow-hidden cursor-pointer']" @click="selected = item" v-for="(item, key) in status" :key="key">
           <div :class="['border w-full text-center py-3 rounded-md', {'bg-primary-200 text-primary-300': selected == item}]">{{ status_text[item] }}</div>

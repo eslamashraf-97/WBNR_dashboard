@@ -32,7 +32,7 @@
     <main-table actionDots :list_url="'admin/products'" :loadingTable="loadingTable" :actions="actions" :filters="filter"  :columns="columns">
       <template v-slot:img="{data}">
         <div class="flex items-center gap-2 py-2">
-          <Avatar :image="data.featured_image" size="large" shape="circle" />
+          <Avatar :image="data.featured_image" class="circle-product flex-none image-fluid" size="large" shape="circle" />
           {{data.title}}
         </div>
       </template>
@@ -142,3 +142,13 @@ function toggle(id, status) {
   productService.switchStatus(id, status ? true : false)
 }
 </script>
+<style>
+.circle-product {
+  width: 50px;
+  height: 50px;
+}
+.circle-product img {
+  width: 100%;
+  height: 100%;
+}
+</style>
