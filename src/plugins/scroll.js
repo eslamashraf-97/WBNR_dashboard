@@ -44,9 +44,13 @@ export const core = {
 			Scrollbar.init(document.querySelector('#mainNotification'));
 		}
 		const main = this.checkElement('id', 'main');
-		console.log(main)
 		if (main) {
 			Scrollbar.init(document.querySelector('#main'));
 		}
+		// const scroll = this.checkElement('class', 'main');
+		// console.log(scroll);
+		// if (scroll) {
+		// 	Scrollbar.init(document.querySelector('#main'));
+		// }
 	},
 };

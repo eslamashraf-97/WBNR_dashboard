@@ -4,7 +4,7 @@
     <navbar @openMobileMenu="showMobileMenu = !showMobileMenu"/>
     <aside-menu :sidebarOpen="showMobileMenu"/>
     <div class="min-h-screen lg:pr-72 pt-24 pb-4 px-5">
-      <main class="h-full" v-show="isNetworkOnline">
+      <main  id="main"  class="h-full" v-show="isNetworkOnline">
         <Transition>
           <router-view />
         </Transition>

@@ -7,8 +7,8 @@
       <InputField type="text" validation="required" placeholder="الاسم باللغه الانجليزية" name="title_en"/>
       <InputField type="text" validation="required|numeric" placeholder="السعر" name="price"/>
       <InputField type="text" validation="required|numeric" placeholder="الكمية" name="stock"/>
-      <InputField type="text" validation="required|numeric" placeholder="قيمة عمولة" name="minCommission"/>
-      <InputField type="text" validation="required|numeric" placeholder="السعر الموصى به" name="recommended_price"/>
+      <InputField type="text" validation="required" placeholder="قيمة عمولة" name="minCommission"/>
+      <InputField type="text" validation="required" placeholder="السعر الموصى به" name="recommended_price"/>
       <MainSelect :options="allCategories" name="category_id" validation="required" optionLabel="name" optionValue="id" placeholder="اختر القسم"/>
       <MainSelect :options="countries" name="country_id" optionLabel="name" optionValue="id"  validation="required" placeholder="اختر البلد"/>
       <div class="col-span-2 mb-6">

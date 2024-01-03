@@ -48,6 +48,22 @@
       <p class="text-2xl mb-2">عدد الطلبات التي تم تسليمها</p>
       <h3 class="mb-0">{{ stats.delivered_order_count }}</h3>
     </div>
+    <div class="flex flex-col bg-gray-100 border border-primary-300 rounded p-4 cursor-pointer" @click="$router.push({name: 'orders', query: {status: 'delivered'} })">
+      <p class="text-2xl mb-2">ايرادات العملاء</p>
+      <h3 class="mb-0">{{ stats.customers_confirmed_revenue }}</h3>
+    </div>
+    <div class="flex flex-col bg-gray-100 border border-primary-300 rounded p-4 cursor-pointer" @click="$router.push({name: 'orders', query: {status: 'delivered'} })">
+      <p class="text-2xl mb-2">إجمالي المبلغ المتبقي</p>
+      <h3 class="mb-0">{{ stats.total_remaining_amount }}</h3>
+    </div>
+    <div class="flex flex-col bg-gray-100 border border-primary-300 rounded p-4 cursor-pointer" @click="$router.push({name: 'orders', query: {status: 'delivered'} })">
+      <p class="text-2xl mb-2">إجمالي المبلغ الذي تم إنفاقه</p>
+      <h3 class="mb-0">{{ stats.total_sent_amount }}</h3>
+    </div>
+    <div class="flex flex-col bg-gray-100 border border-primary-300 rounded p-4 cursor-pointer" @click="$router.push({name: 'orders', query: {status: 'delivered'} })">
+      <p class="text-2xl mb-2">إجمالي المبلغ الذي تم سحبه</p>
+      <h3 class="mb-0">{{ stats.total_withdraw_amount }}</h3>
+    </div>
   </div>
 </template>
 

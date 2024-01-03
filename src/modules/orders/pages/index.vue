@@ -56,7 +56,15 @@
         <app-button submit-title="حفط التغييرات" :loading="loading" type="button" @click="changeStatus"/>
       </div>
     </Dialog>
-
+    <Dialog v-model:visible="selectOrder" maximizable modal header="إضافه منتج للطلب"  :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+      <ValidationForm @submit="addItemToOrder"	v-slot="{ values }">
+      <MainSelect :options="allProducts" name="product_id" optionLabel="title" optionValue="id"  validation="required" placeholder="اختر المنتج"/>
+      <InputField type="text" validation="required" placeholder="السعر" name="final_price"/>
+      <div class="sign-up__button-action mt-4">
+        <AppButton class="" type="submit" :loading="loadingAddNew" submit-title="حفظ المنتج"></AppButton>
+      </div>
+      </ValidationForm>
+    </Dialog>
     <div class="flex justify-between items-center mb-4 border-b-2 pb-3">
       <h5 class="text-md">الطلبات</h5>
     </div>
@@ -138,6 +146,9 @@
       <template v-slot:changeStatus="{data}">
         <app-button class="border border-primary-300 !text-primary-300 !bg-white" v-if="$hasPer('orders:update')" submit-title="تفاصيل الطلب" @click="showOrderDetails(data)"/>
       </template>
+      <template v-slot:addProduct="{data}">
+        <app-button class="border border-primary-300 !text-primary-300 !bg-white" v-if="$hasPer('orders:update')" submit-title="اضافه منتج" @click="showAdd(data)"/>
+      </template>
     </main-table>
   </Box>
 </template>
@@ -148,6 +159,9 @@ import AppButton from "@/components/global/AppButton.vue";
 import Avatar from "primevue/avatar";
 import orderServices from "@modules/orders/services/order.services";
 import { useCountries } from "../../country/composables";
+import productServices from "../../products/services/product.services";
+
+
 const columns = [
   {
     header: 'رقم الطلب',
@@ -189,6 +203,10 @@ const columns = [
   {
     header: '',
     field: 'changeStatus'
+  },
+  {
+    header: '',
+    field: 'addProduct'
   }
 ]
 const columnsProducts = [
@@ -227,6 +245,9 @@ const selected = ref()
 const loading = ref(false)
 const reason = ref('')
 const loadingTable = ref(false)
+const loadingAddNew = ref(false)
+const selectOrder = ref(null)
+const allProducts = ref([])
 
 const status = ['pending', 'confirmed',  'processing', 'cancelled', 'shipping', 'rejected', 'delivered']
 const status_text = ref({
@@ -247,6 +268,9 @@ function showOrderDetails(data) {
   orderDetails.value = data
   selected.value = data.status
 }
+function showAdd(data) {
+  selectOrder.value = data.id
+}
 function changeStatus () {
   loading.value = true
   loadingTable.value = false
@@ -255,6 +279,20 @@ function changeStatus () {
     loadingTable.value = true
   }).finally(() => {
     loading.value = false
+  })
+}
+
+function getAllProducts () {
+  productServices.gitAllProduct().then(res => {
+    allProducts.value = res.data.data
+  })
+}
+getAllProducts()
+function addItemToOrder (data) {
+  loadingAddNew.value = true
+  orderServices.addItemToOrder(selectOrder.value, data).then(res => {
+    loadingAddNew.value = false
+    selectOrder.value = null
   })
 }
 </script>
