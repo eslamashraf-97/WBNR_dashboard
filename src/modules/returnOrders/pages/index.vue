@@ -34,6 +34,9 @@
           <p>{{data.product.code}}</p>
         </template>
       </main-table>
+<!--      {{ orderDetails.img }}-->
+<!--      {{ orderDetails }}-->
+      <img class="w-[300px] mt-4" :src="orderDetails.image" />
       <label class="mt-3 mb-2 text-gray-700 text-lg">اختر الحالة :</label>
       <div class="gap-4 grid grid-cols-4">
         <div :class="['col-span-1 overflow-hidden cursor-pointer']" @click="selected = item" v-for="(item, key) in status" :key="key">

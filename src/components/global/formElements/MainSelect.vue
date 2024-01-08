@@ -15,13 +15,14 @@
 			<Dropdown
 				:class="['w-full', { 'is-invalid': errors.length > 0 }]"
 				:options="options"
+        filter
 				:optionLabel="optionLabel"
 				:optionValue="optionValue"
 				:inputClass="`max-w-full capitalize h-[47px] ${inputClass}`"
 				:placeholder="placeholder"
 				:id="id"
 				:modelValue="value"
-				@change="$emit('update:modelValue', $event.value)"
+				@change="$emit('update:modelValue', $event.value); $emit('change', $event.value)"
 				@update:modelValue="handleChange"
 				v-bind="field.value?.value"
 			>
@@ -88,3 +89,9 @@ export default {
 	},
 };
 </script>
+<style>
+.p-dropdown-panel .p-dropdown-header .p-dropdown-filter-icon {
+  left : 10px !important;
+  right: unset;
+}
+</style>

@@ -1,4 +1,16 @@
 <template>
+  <div>
+    <Dropdown
+      :class="'max-w-full capitalize h-[47px] mb-4'"
+      :options="countries"
+      v-model="details"
+      placeholder="اختر الدوله"
+      optionLabel="name"
+      optionValue="id"
+      @change="getAllStats"
+    >
+    </Dropdown>
+  </div>
   <div class="grid  md:grid-cols-2  lg:grid-cols-2 xl:grid-cols-4 gap-4 mb-4" v-if="stats">
     <div class="flex flex-col bg-gray-100 border border-primary-300 rounded p-4 cursor-pointer">
         <p class="text-2xl mb-2">مبيعات</p>
@@ -68,12 +80,18 @@
 </template>
 
 <script setup>
+import MainSelect from "@/components/global/formElements/MainSelect.vue"
+import dashboardServices from "@modules/dashboard/services/dashboard.services"
+import { useCountries } from "../../country/composables"
 import { ref } from 'vue'
-import dashboardServices from "@modules/dashboard/services/dashboard.services";
 const stats = ref('')
-function getAllStats() {
-  dashboardServices.getAllStatistics().then(res => {
+const { countries } = useCountries()
+const details = ref()
+function getAllStats(data = '') {
+  // console.log('data => ', data?.value);
+  dashboardServices.getAllStatistics(data?.value).then(res => {
     stats.value = res.data.data
+    details.value = +res.data.data.country_id
   })
 }
 

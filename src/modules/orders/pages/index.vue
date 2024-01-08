@@ -57,9 +57,10 @@
       </div>
     </Dialog>
     <Dialog v-model:visible="selectOrder" maximizable modal header="إضافه منتج للطلب"  :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
-      <ValidationForm @submit="addItemToOrder"	v-slot="{ values }">
-      <MainSelect :options="allProducts" name="product_id" optionLabel="title" optionValue="id"  validation="required" placeholder="اختر المنتج"/>
+      <ValidationForm @submit="addItemToOrder" v-slot="{ values }"  :initialValues="details">
+      <MainSelect :options="allProducts" name="product_id" optionLabel="title" @change="change" optionValue="id" placeholder="اختر المنتج"/>
       <InputField type="text" validation="required" placeholder="السعر" name="final_price"/>
+<!--        {{ filters }}-->
       <div class="sign-up__button-action mt-4">
         <AppButton class="" type="submit" :loading="loadingAddNew" submit-title="حفظ المنتج"></AppButton>
       </div>
@@ -138,6 +139,11 @@
           <span class="text-green-500 cursor-pointer" @click="showDetails(data.client)">(تفاصيل)</span>
         </div>
       </template>
+      <template v-slot:customer="{data}">
+        <div class="flex items-center gap-2 py-2">
+          <p>{{data.customer.name}}</p>
+        </div>
+      </template>
       <template v-slot:status="{data}">
         <div class="flex items-center gap-2 py-2">
           <p :class="`status--${data.status}`">{{status_text[data.status]}}</p>
@@ -147,7 +153,7 @@
         <app-button class="border border-primary-300 !text-primary-300 !bg-white" v-if="$hasPer('orders:update')" submit-title="تفاصيل الطلب" @click="showOrderDetails(data)"/>
       </template>
       <template v-slot:addProduct="{data}">
-        <app-button class="border border-primary-300 !text-primary-300 !bg-white" v-if="$hasPer('orders:update')" submit-title="اضافه منتج" @click="showAdd(data)"/>
+        <app-button class="border border-primary-300 !text-primary-300 !bg-white" v-if="$hasPer('orders:update')" submit-title="اضافه منتج" @click="details = {}; showAdd(data)"/>
       </template>
     </main-table>
   </Box>
@@ -170,6 +176,10 @@ const columns = [
   {
     header: 'العميل',
     field: 'client'
+  },
+  {
+    header: 'المسوق',
+    field: 'customer'
   },
   {
     header: 'البلد',
@@ -248,6 +258,8 @@ const loadingTable = ref(false)
 const loadingAddNew = ref(false)
 const selectOrder = ref(null)
 const allProducts = ref([])
+const filters = ref({})
+const details = ref({})
 
 const status = ['pending', 'confirmed',  'processing', 'cancelled', 'shipping', 'rejected', 'delivered']
 const status_text = ref({
@@ -270,6 +282,15 @@ function showOrderDetails(data) {
 }
 function showAdd(data) {
   selectOrder.value = data.id
+}
+
+function change(s) {
+  // console.log('aaaaaaaa', s);
+  filters.value = {}
+  // details.value.final_price = null
+  filters.value = allProducts.value.find(data => data.id == s)
+  details.value.product_id =  allProducts.value.find(data => data.id == s).id
+  details.value.final_price = allProducts.value.find(data => data.id == s).price
 }
 function changeStatus () {
   loading.value = true
