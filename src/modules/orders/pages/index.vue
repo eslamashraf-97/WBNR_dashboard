@@ -60,6 +60,7 @@
       <ValidationForm @submit="addItemToOrder" v-slot="{ values }"  :initialValues="details">
       <MainSelect :options="allProducts" name="product_id" optionLabel="title" @change="change" optionValue="id" placeholder="اختر المنتج"/>
       <InputField type="text" validation="required" placeholder="السعر" name="final_price"/>
+      <InputField type="text" validation="required" placeholder="الكمية" name="quantity"/>
 <!--        {{ filters }}-->
       <div class="sign-up__button-action mt-4">
         <AppButton class="" type="submit" :loading="loadingAddNew" submit-title="حفظ المنتج"></AppButton>
