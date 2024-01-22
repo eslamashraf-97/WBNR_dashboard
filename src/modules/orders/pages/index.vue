@@ -53,6 +53,21 @@
               shape="circle"
             />
             {{ data.product.title }}
+            <template
+              v-if="
+                data.orderItemVariants.length &&
+                data.orderItemVariants.length > 0
+              "
+            >
+              (
+              <span class="inline-flex">
+                <span v-for="(i, key) in data.orderItemVariants" :key="key">
+                  {{ i.variantValue.name }}
+                  <span v-if="key != data.orderItemVariants.length - 1">-</span>
+                </span>
+              </span>
+              )
+            </template>
           </div>
         </template>
         <template v-slot:code="{ data }">
