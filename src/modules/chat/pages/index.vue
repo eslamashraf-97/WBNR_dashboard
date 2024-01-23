@@ -15,9 +15,31 @@
             class="flex flex-row justify-center items-center border-b"
             v-for="(user, key) in chats"
             :key="key"
+            @click="resetNotification(user.id)"
           >
             <button class="w-full" @click="selectChat(user.id)">
-              <div :class="['text-lg py-4 px-2  text-left font-semibold', {'border-r-4 border-primary-300 bg-primary-100' : user.id == activeChat }]">{{ user.name }}</div>
+              <div
+                :class="[
+                  'text-lg py-4 px-4 text-left font-semibold flex justify-between items-center',
+                  {
+                    'border-r-4 border-primary-300 bg-primary-100':
+                      user.id == activeChat,
+                  },
+                ]"
+              >
+                <span>
+                  {{ user.name }}
+                </span>
+
+                <div
+                  class="bg-teal-200  rounded-full text-white px-3 py-1"
+                  v-if="
+                    notification.find((n) => n.userId == user.id)  && notification.find((n) => n.userId == user.id).count > 0
+                  "
+                >
+                {{ notification.find((n) => n.userId == user.id).count }}
+              </div>
+              </div>
             </button>
           </div>
           <!-- end user list -->
@@ -79,10 +101,23 @@
 </template>
 <script setup>
 import useChat from "../compasables/useChat";
-const activeChat = ref(null)
-const { chats, newMessage, messages, getMessages, sendMessage, setActiveChat } =
-  useChat();
-import { nextTick, ref, watch } from "vue";
+import { computed, nextTick, onMounted, ref, watch } from "vue";
+import { useStore } from "vuex";
+const activeChat = ref(null);
+const {
+  chats,
+  newMessage,
+  messages,
+  getMessages,
+  sendMessage,
+  setActiveChat,
+  resetNotification,
+} = useChat();
+const store = useStore();
+
+// make notifications reactive
+const notification = computed(() => store.getters["notifications/getNotifications"]);
+
 const chatbox = ref(null);
 watch(
   () => messages,
@@ -93,9 +128,10 @@ watch(
   },
   { immediate: true, deep: true }
 );
+
 const selectChat = (user) => {
   setActiveChat(user);
   getMessages();
-  activeChat.value = user
+  activeChat.value = user;
 };
 </script>
