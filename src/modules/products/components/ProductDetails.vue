@@ -8,12 +8,6 @@
       <InputField
         type="text"
         validation="required"
-        placeholder="كود المنتج"
-        name="code"
-      />
-      <InputField
-        type="text"
-        validation="required"
         placeholder="اسم التاجر"
         name="third_party_seller_name"
       />
@@ -106,13 +100,19 @@
         <label class="capitalize p-0 font-semibold font-14 text-text-700 mb-4"
           >رفع فيديو</label
         >
-        <Upload
-          name="video"
-          video
-          label="ارفع فيديو"
-          @upload="uploadVideo"
-          :imageValue="videos"
-        />
+        <template v-if="videos && videos.length" v-for="(item, key) in videos">
+          <Upload
+            name="video"
+            video
+            label="ارفع فيديو"
+            @upload="uploadVideo"
+            :imageValue="item.url"
+            @deleteImage="deleteVideos"
+          />
+        </template>
+        <template v-else>
+          <Upload name="video" video label="ارفع فيديو" @upload="uploadVideo" />
+        </template>
       </div>
 
       <div class="my-2 col-span-2">
@@ -314,6 +314,13 @@ function deleteImage(image) {
   console.log("ind => ", ind);
   images.value.splice(ind, 1);
 }
+function deleteVideos(video) {
+  console.log(videos.value);
+  console.log(video);
+  let ind = videos.value.findIndex((data) => data === video);
+  console.log("ind => ", ind);
+  videos.value.splice(ind, 1);
+}
 function getAllCategory() {
   categoryServices.getAllCategory().then((res) => {
     allCategories.value = res.data.data;
@@ -340,9 +347,12 @@ function uploadMultiImage(val) {
   images.value[images.value.length - 1].url = val;
 }
 function uploadVideo(val) {
-  videos.value = {
-    url: val,
-  };
+  videos.value = [
+    ...videos.value,
+    {
+      url: val,
+    },
+  ];
 }
 function onsubmit(values) {
   loading.value = true;
@@ -382,7 +392,7 @@ watch(
   () => props.details,
   (data) => {
     images.value = data.images.map((im) => im.url);
-    videos.value = data.videos.url;
+    videos.value = data.videos.map((im) => im.url);
   }
 );
 </script>
