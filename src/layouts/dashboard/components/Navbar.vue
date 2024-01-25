@@ -148,6 +148,7 @@ async function changeItemStatus(item) {
     unread.value--;
     allSelected.value.push(item.id);
   }
+  // remove notification
   if (item.type == "order") {
     router.push({ name: "orders", query: { id: item.target_id } });
   }
