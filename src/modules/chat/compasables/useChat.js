@@ -43,7 +43,25 @@ export default function useChat() {
   const getNotifications = () => {
     const q = query(collection(db, "notifications"));
     onSnapshot(q, (snapshot) => {
-      notificationSOund.play();
+      // if notificaion is for current user and the notification count is greater than 0
+      // if (
+      //   notifications.find(
+      //     (notification) =>
+      //       notification.userId == userId && notification.count > 0
+      //   )
+      // ) {
+      //   notificationSOund.play();
+      // }
+      console.log(notifications.value);
+      if (
+        notifications.value.length &&
+        notifications.value.find(
+          (notification) =>
+            notification.userId == activeChat.value.id && notification.count > 0
+        )
+      ) {
+        notificationSOund.play();
+      }
       snapshot.docs.map((doc) => {
         store.dispatch("notifications/updateNotifications", {
           ...doc.data(),

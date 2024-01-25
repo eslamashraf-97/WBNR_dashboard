@@ -127,16 +127,17 @@ const chats = computed(() => store.getters["notifications/isNewMessages"]);
 function getNotification() {
   services.getNotification().then((res) => {
     items.value = res.data.data;
+    unread.value = res.data.data.filter((item) => !item.is_read).length;
   });
 }
-function getNotificationUnread() {
-  services.getNotificationUnread().then((res) => {
-    unread.value = res.data.data;
-  });
-}
+// function getNotificationUnread() {
+//   services.getNotificationUnread().then((res) => {
+//     unread.value = res.data.data;
+//   });
+// }
 
 getNotification();
-getNotificationUnread();
+// getNotificationUnread();
 const toggle = (event) => {
   menu.value.toggle(event);
 };
@@ -152,6 +153,8 @@ async function changeItemStatus(item) {
   if (item.type == "order") {
     router.push({ name: "orders", query: { id: item.target_id } });
   }
+  getNotification();
+  
 }
 onMounted(() => {
   const messaging = getMessaging();
