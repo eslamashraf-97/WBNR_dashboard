@@ -19,7 +19,7 @@
                 </div>
               </label>
             </div>
-            {{ item.name }}
+            {{ item.name_ar }}
           </label>
         </Field>
       </div>
