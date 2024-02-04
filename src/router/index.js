@@ -18,6 +18,7 @@ import faqRoutes from "@modules/faq/faq.routes";
 import bannerRoutes from "@modules/banners/banner.routes";
 import testimonialRoutes from "@modules/testimonial/testimonial.routes";
 import withdrawRoutes from "@modules/withdraw/withdraw.routes";
+import messageRoutes from '../modules/message/message.routes';
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,7 +46,8 @@ const router = createRouter({
 				...faqRoutes,
 				...bannerRoutes,
 				...testimonialRoutes,
-				...withdrawRoutes
+				...withdrawRoutes,
+				...messageRoutes
 			],
 			meta: {
 				requireAuth: true,
