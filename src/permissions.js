@@ -2,7 +2,7 @@ export const permissions = [
   {
     id: 1,
     name: "find users",
-    name_ar: "البحث عن المستخدمين",
+    name_ar: "عرض المستخدمين",
     slug: "users:find",
     category: "users",
     action: "find",
@@ -10,7 +10,7 @@ export const permissions = [
   {
     id: 2,
     name: "findOne users",
-    name_ar: "البحث عن مستخدم",
+    name_ar: "عرض مستخدم واحد",
     slug: "users:findOne",
     category: "users",
     action: "findOne",
@@ -42,7 +42,7 @@ export const permissions = [
   {
     id: 6,
     name: "find roles",
-    name_ar: "البحث عن الأدوار",
+    name_ar: "عرض جميع الأدوار",
     slug: "roles:find",
     category: "roles",
     action: "find",
@@ -50,7 +50,7 @@ export const permissions = [
   {
     id: 7,
     name: "findOne roles",
-    name_ar: "البحث عن دور",
+    name_ar: "عرض دور واحد",
     slug: "roles:findOne",
     category: "roles",
     action: "findOne",
@@ -82,7 +82,7 @@ export const permissions = [
   {
     id: 11,
     name: "find permissions",
-    name_ar: "البحث عن الأذونات",
+    name_ar: "عرض الأذونات",
     slug: "permissions:find",
     category: "permissions",
     action: "find",
@@ -90,7 +90,7 @@ export const permissions = [
   {
     id: 12,
     name: "findOne permissions",
-    name_ar: "البحث عن إذن",
+    name_ar: "عرض إذن واحد",
     slug: "permissions:findOne",
     category: "permissions",
     action: "findOne",
@@ -122,7 +122,7 @@ export const permissions = [
   {
     id: 16,
     name: "find product_categories",
-    name_ar: "البحث عن فئات المنتجات",
+    name_ar: "عرض فئات المنتجات",
     slug: "product_categories:find",
     category: "product_categories",
     action: "find",
@@ -130,7 +130,7 @@ export const permissions = [
   {
     id: 17,
     name: "findOne product_categories",
-    name_ar: "البحث عن فئة المنتج",
+    name_ar: "عرض فئة منتج واحدة",
     slug: "product_categories:findOne",
     category: "product_categories",
     action: "findOne",
@@ -162,7 +162,7 @@ export const permissions = [
   {
     id: 21,
     name: "find products",
-    name_ar: "البحث عن المنتجات",
+    name_ar: "عرض المنتجات",
     slug: "products:find",
     category: "products",
     action: "find",
@@ -170,7 +170,7 @@ export const permissions = [
   {
     id: 22,
     name: "findOne products",
-    name_ar: "البحث عن منتج",
+    name_ar: "عرض منتج واحد",
     slug: "products:findOne",
     category: "products",
     action: "findOne",
@@ -210,7 +210,7 @@ export const permissions = [
   {
     id: 27,
     name: "findOne countries",
-    name_ar: "البحث عن بلد",
+    name_ar: "البحث عن بلد واحد",
     slug: "countries:findOne",
     category: "countries",
     action: "findOne",
@@ -242,7 +242,7 @@ export const permissions = [
   {
     id: 31,
     name: "find cities",
-    name_ar: "البحث عن المدن",
+    name_ar: "عرض المدن",
     slug: "cities:find",
     category: "cities",
     action: "find",
@@ -250,7 +250,7 @@ export const permissions = [
   {
     id: 32,
     name: "findOne cities",
-    name_ar: "البحث عن مدينة",
+    name_ar: "عرض مدينة واحدة",
     slug: "cities:findOne",
     category: "cities",
     action: "findOne",
@@ -281,7 +281,7 @@ export const permissions = [
   {
     id: 36,
     name: "find orders",
-    name_ar: "البحث عن الطلبات",
+    name_ar: "عرض الطلبات",
     slug: "orders:find",
     category: "orders",
     action: "find",
@@ -289,7 +289,7 @@ export const permissions = [
   {
     id: 37,
     name: "findOne orders",
-    name_ar: "البحث عن طلب",
+    name_ar: "ع"
     slug: "orders:findOne",
     category: "orders",
     action: "findOne",
@@ -361,7 +361,7 @@ export const permissions = [
   {
     id: 46,
     name: "find clients",
-    name_ar:  "البحث عن العملاء",
+    name_ar: "البحث عن العملاء",
     slug: "clients:find",
     category: "clients",
     action: "find",
