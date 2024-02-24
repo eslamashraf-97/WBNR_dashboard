@@ -289,7 +289,7 @@ export const permissions = [
   {
     id: 37,
     name: "findOne orders",
-    name_ar: "ع"
+    name_ar: "عرض طلب واحد",
     slug: "orders:findOne",
     category: "orders",
     action: "findOne",
@@ -361,7 +361,7 @@ export const permissions = [
   {
     id: 46,
     name: "find clients",
-    name_ar: "البحث عن العملاء",
+    name_ar: "عرض جميع العملاء",
     slug: "clients:find",
     category: "clients",
     action: "find",
@@ -369,7 +369,7 @@ export const permissions = [
   {
     id: 47,
     name: "findOne clients",
-    name_ar: "البحث عن عميل",
+    name_ar: "عرض عميل واحد",
     slug: "clients:findOne",
     category: "clients",
     action: "findOne",
@@ -441,7 +441,7 @@ export const permissions = [
   {
     id: 56,
     name: "find withdrawals",
-    name_er: "البحث عن السحب",
+    name_er: "عرض جميع عمليات السحب",
     slug: "withdrawals:find",
     category: "withdrawals",
     action: "find",
@@ -449,7 +449,7 @@ export const permissions = [
   {
     id: 57,
     name: "findOne withdrawals",
-    name_ar: "البحث عن السحب",
+    name_ar: "عرض عمليه السحب",
     slug: "withdrawals:findOne",
     category: "withdrawals",
     action: "findOne",
@@ -473,7 +473,7 @@ export const permissions = [
   {
     id: 60,
     name: "find transactions",
-    name_ar: "البحث عن المعاملات",
+    name_ar: "عرض جميع المعاملات",
     slug: "transactions:find",
     category: "transactions",
     action: "find",
@@ -481,7 +481,7 @@ export const permissions = [
   {
     id: 61,
     name: "findOne transactions",
-    name_ar: "البحث عن المعاملة",
+    name_ar: "عرض معامله واحده",
     slug: "transactions:findOne",
     category: "transactions",
     action: "findOne",
@@ -513,7 +513,7 @@ export const permissions = [
   {
     id: 65,
     name: "find dashboard statistics",
-    name_ar: "البحث عن إحصائيات لوحة القيادة",
+    name_ar:"عرض جميع الاحصائيات",
     slug: "dashboard-statistics:find",
     category: "dashboard",
     action: "find",
@@ -521,7 +521,7 @@ export const permissions = [
   {
     id: 66,
     name: "find faq",
-    name_ar: "البحث عن الأسئلة الشائعة",
+    name_ar: "عرض الاسئله الشائعه",
     slug: "faq:find",
     category: "faq",
     action: "find",
@@ -529,7 +529,7 @@ export const permissions = [
   {
     id: 67,
     name: "findOne faq",
-    name_ar: "البحث عن الأسئلة الشائعة",
+    name_ar: "عرض سؤال واحد",
     slug: "faq:findOne",
     category: "faq",
     action: "findOne",
@@ -561,7 +561,7 @@ export const permissions = [
   {
     id: 71,
     name: "find delivery notes",
-    name_ar: "البحث عن ملاحظات التسليم",
+    name_ar: "عرض ملاحظات الشحن",
     slug: "delivery_notes:find",
     category: "delivery_notes",
     action: "find",
@@ -569,7 +569,7 @@ export const permissions = [
   {
     id: 72,
     name: "findOne delivery notes",
-    name_ar: "البحث عن ملاحظات التسليم",
+    name_ar: "عرض ملاحظه شحن واحده",
     slug: "delivery_notes:findOne",
     category: "delivery_notes",
     action: "findOne",
@@ -601,7 +601,7 @@ export const permissions = [
   {
     id: 76,
     name: "find testimonials",
-    name_ar: "البحث عن الشهادات",
+    name_ar: "عرض جميع الاراء",
     slug: "testimonials:find",
     category: "testimonials",
     action: "find",
@@ -609,7 +609,7 @@ export const permissions = [
   {
     id: 77,
     name: "findOne testimonials",
-    name_ar: "البحث عن الشهادات",
+    name_ar: "عرض راي واحد",
     slug: "testimonials:findOne",
     category: "testimonials",
     action: "findOne",
