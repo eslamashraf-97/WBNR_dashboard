@@ -3,6 +3,10 @@ export default {
   createTestimonial(payload) {
     return api().post("admin/testimonial", payload);
   },
+  editTestimonial(payload) {
+    console.log('payload', payload)
+    return api().patch(`admin/testimonial/${payload.id}`, payload);
+  },
   createDeliveryNotes(payload) {
     return api().post("admin/delivery-notes", payload);
   },

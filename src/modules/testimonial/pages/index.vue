@@ -9,9 +9,10 @@ const details = ref({
   marketer_name: "",
   testimonial: "",
   marketer_image: "",
+  id: "",
 });
 const image = ref("");
-const { handleSubmit, setValues,values } = useForm({
+const { handleSubmit, setValues, values } = useForm({
   initialValues: details.value,
 });
 const route = useRoute();
@@ -21,6 +22,7 @@ onMounted(async () => {
     const { data } = await testimonialService.getTestimonial(id);
     console.log(data.data);
     setValues(data.data);
+    details.value = data.data;
     image.value = data.data.marketer_image;
   }
 });
@@ -35,8 +37,11 @@ function uploadImage(val) {
 }
 function onsubmit(val) {
   loading.value = true;
-  testimonialService
-    .createTestimonial({ ...values, marketer_image: image.value })
+  const service = id
+    ? testimonialService.editTestimonial
+    : testimonialService.createTestimonial;
+  console.log(details.value);
+  service({ ...details.value, marketer_image: image.value })
     .finally(() => {
       loading.value = false;
     });
