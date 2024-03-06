@@ -6,7 +6,7 @@
         <app-button
           v-if="$hasPer('products:create')"
           class="rounded-lg font-medium !py-3"
-          @click="$router.push('/admin/testimonials/create')"
+          @click="$router.push({ name: 'testimonials.create' })"
           submit-title="اضافه راي جديد"
         >
           <template v-slot:icon> + </template>

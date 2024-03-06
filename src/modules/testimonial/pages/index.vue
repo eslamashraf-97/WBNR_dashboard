@@ -11,7 +11,7 @@ const details = ref({
   marketer_image: "",
 });
 const image = ref("");
-const { handleSubmit, setValues } = useForm({
+const { handleSubmit, setValues,values } = useForm({
   initialValues: details.value,
 });
 const route = useRoute();
@@ -36,7 +36,7 @@ function uploadImage(val) {
 function onsubmit(val) {
   loading.value = true;
   testimonialService
-    .createTestimonial({ ...val, marketer_image: marketer_image.value })
+    .createTestimonial({ ...values, marketer_image: image.value })
     .finally(() => {
       loading.value = false;
     });
@@ -49,7 +49,6 @@ function onsubmit(val) {
       <h5 class="text-md mb-4">إضافة رأى</h5>
     </div>
     <div>
-      {{ values }}
       <Upload
         name="marketer_image"
         label="ارفع صورتك"
@@ -75,6 +74,7 @@ function onsubmit(val) {
           type="submit"
           :loading="loading"
           submit-title="حفظ "
+          @click="onsubmit"
         ></AppButton>
       </div>
     </div>
