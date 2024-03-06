@@ -31,7 +31,7 @@ onMounted(async () => {
 //         "marketer_image": "https://taager.com/assets/img/landing/testimonials/man-1.svg"
 
 function uploadImage(val) {
-  marketer_image.value = val;
+  image.value = val;
 }
 function onsubmit(val) {
   loading.value = true;
