@@ -248,17 +248,17 @@
         plceholder="شرح المنتج"
       ></MainTextarea>
     </div>
-    <Field v-slot="{ field }" name="is_favorite" type="checkbox" value="true">
+    <Field v-slot="{ field }" name="is_featured" type="checkbox" value="true">
       <label class="flex gap-2">
         <div class="checkbox-wrapper-45">
           <input
             type="checkbox"
             name="terms"
-            :id="'is_favorite'"
+            :id="'is_featured'"
             v-bind="field"
             value="true"
           />
-          <label class="cbx" :for="'is_favorite'">
+          <label class="cbx" :for="'is_featured'">
             <div class="flip">
               <div class="front"></div>
               <div class="back">
@@ -280,6 +280,7 @@
         submit-title="حفظ المنتج"
       ></AppButton>
     </div>
+    {{ values }}
   </ValidationForm>
 </template>
 <script setup>
@@ -364,6 +365,7 @@ function onsubmit(values) {
         featured_image: featured_image.value,
         videos: videos.value,
         unit_id: "1",
+        is_featured: Boolean(values.is_featured)
       })
       .then((res) => {
         emit("finish");
@@ -379,6 +381,7 @@ function onsubmit(values) {
         featured_image: featured_image.value,
         videos: videos.value,
         unit_id: "1",
+        is_featured: BooleanO(values.is_featured)
       })
       .then((res) => {
         emit("finish");

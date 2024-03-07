@@ -40,8 +40,8 @@ function onsubmit(val) {
   const service = id
     ? testimonialService.editTestimonial
     : testimonialService.createTestimonial;
-  console.log(details.value);
-  service({ ...details.value, marketer_image: image.value })
+  console.log(values);
+  service({ ...values, marketer_image: image.value })
     .finally(() => {
       loading.value = false;
     });
