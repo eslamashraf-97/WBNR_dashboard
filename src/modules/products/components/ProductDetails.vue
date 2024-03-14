@@ -280,7 +280,6 @@
         submit-title="حفظ المنتج"
       ></AppButton>
     </div>
-    {{ values }}
   </ValidationForm>
 </template>
 <script setup>
