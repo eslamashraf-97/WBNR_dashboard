@@ -30,7 +30,7 @@ export function api(header = {}) {
 		(errors) => {
 			console.log(errors?.response?.data?.message)
 			if (errors?.response?.data) {
-				if (errors.response.status === 401) {
+				if (errors.response.status === 403) {
 					routes.push({ name: 'signIn' })
 					error('error', errors?.response?.data?.message)
 				} else {
