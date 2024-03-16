@@ -364,7 +364,7 @@ function onsubmit(values) {
           ...values,
           images: images.value,
           featured_image: featured_image.value,
-          videos: videos.value,
+          videos: videos.value ?? [],
           unit_id: "1",
           is_featured: Boolean(values.is_featured),
         })
