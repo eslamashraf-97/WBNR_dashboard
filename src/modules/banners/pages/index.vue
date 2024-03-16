@@ -42,7 +42,9 @@
       </div>
     </Dialog>
     <div class="flex justify-between items-center border-b-2 pb-3 mb-4">
-      <h5 class="text-md mb-4">التواصل الاجتماعى</h5>
+      <h5 class="text-md mb-4">
+        عرض الصور
+      </h5>
       <app-button
         v-if="$hasPer('products:create')"
         submit-title="إضف جديد"
@@ -124,7 +126,7 @@ function onsubmit(data) {
   };
   console.log(payload);
   bannerServices.createBanner(payload).then((res) => {
-    console.log(res);
+    visible.value = false; 
   });
 }
 const details = ref({});
