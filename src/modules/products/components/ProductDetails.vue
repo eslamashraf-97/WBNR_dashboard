@@ -279,7 +279,7 @@ const { countries } = useCountries();
 const props = defineProps(["details"]);
 const emit = defineEmits(["finish"]);
 let featured_image = ref(props.details?.featured_image || "");
-let videos = ref(props.details?.videos || "");
+let videos = ref(props.details?.videos || []);
 let images = ref(
   props.details?.images || [
     {
@@ -347,7 +347,7 @@ function onsubmit(values) {
           ...values,
           images: images.value,
           featured_image: featured_image.value,
-          videos: videos.value,
+          videos: videos.value ?? [],
           unit_id: "1",
           is_featured: Boolean(values.is_featured),
         })
