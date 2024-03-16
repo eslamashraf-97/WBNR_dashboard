@@ -12,7 +12,6 @@
         <ValidationForm @submit="onsubmit" :initialValues="details" v-slot="{ values }">
           <InputField
             type="text"
-            validation="required"
             placeholder="اللينك"
             name="path"
           />

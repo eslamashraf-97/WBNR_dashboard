@@ -14,6 +14,9 @@
       :columns="columns"
       :showActions="false"
     >
+    <template v-slot:is_resolved="{data}">
+        <InputSwitch v-model="data.is_resolved" @change="toggle(data.id, data.is_resolved)"/>
+      </template>
     </main-table>
   </Box>
 </template>
@@ -21,6 +24,7 @@
 <script setup>
 import { ref } from "vue";
 import Avatar from "primevue/avatar";
+import contactUsServices from "../services/contactUs.services";
 
 const loadingTable = ref(false);
 const columns = [
@@ -40,7 +44,16 @@ const columns = [
     field: 'message',
     header: 'الرساله'
   },
+  {
+    field: 'is_resolved',
+    header: 'تم الحل'
+  }
 ];
+function toggle(id, is_resolved) {
+  contactUsServices.toggle(id, {is_resolved}).then((res) => {
+    console.log(res);
+  });
+}
 
 </script>
 <style>
