@@ -1,9 +1,5 @@
 <template>
-  <ValidationForm
-    @submit="onsubmit"
-    v-slot="{ values }"
-    :initialValues="details"
-  >
+  <ValidationForm @submit="onsubmit" :initialValues="details">
     <div class="ld:grid grid-cols-2 gap-2">
       <InputField
         type="text"
@@ -87,9 +83,7 @@
           @click="addNewImage"
         >
           <div class="flex flex-col items-center">
-            <p
-              class="text-gray-300 text-md mt-2 w-100 text-center font-semibold"
-            >
+            <p class="text-gray-300 text-md mt-2 w-100 text-center font-semibold">
               رفع صورة جديدة +
             </p>
           </div>
@@ -124,9 +118,7 @@
             class="p-3 rounded-2xl bg-gray-200 w-100 mb-2"
           >
             <div class="flex justify-between">
-              <label class="text-black text-lg"
-                >معلومات رئيسية عن الخاصية</label
-              >
+              <label class="text-black text-lg">معلومات رئيسية عن الخاصية</label>
               <div class="delete_box shadow" @click="remove">
                 <i class="pi pi-trash text-white" />
               </div>
@@ -179,9 +171,7 @@
                     label="الاسم باللغه الانجليزية"
                     validation="required"
                   />
-                  <app-button @click="r" class="!bg-red-600 text-white"
-                    >مسج</app-button
-                  >
+                  <app-button @click="r" class="!bg-red-600 text-white">مسج</app-button>
                 </div>
                 <div v-else-if="field.value.type == 'الوان'">
                   <InputField
@@ -199,9 +189,7 @@
                     validation="required"
                     type="color"
                   />
-                  <app-button @click="r" class="!bg-red-600 text-white"
-                    >مسج</app-button
-                  >
+                  <app-button @click="r" class="!bg-red-600 text-white">مسج</app-button>
                 </div>
               </div>
               <app-button
@@ -227,9 +215,7 @@
           </app-button>
         </FieldArray>
       </div>
-      <label
-        :for="id"
-        class="capitalize p-0 font-semibold font-14 text-text-700"
+      <label :for="id" class="capitalize p-0 font-semibold font-14 text-text-700"
         >تفاصيل المنتج</label
       >
       <MainTextarea
@@ -237,9 +223,7 @@
         name="description"
         plceholder="تفاصيل المنتج"
       ></MainTextarea>
-      <label
-        :for="id"
-        class="capitalize p-0 font-semibold font-14 text-text-700"
+      <label :for="id" class="capitalize p-0 font-semibold font-14 text-text-700"
         >شرح المنتج</label
       >
       <MainTextarea
@@ -356,38 +340,43 @@ function uploadVideo(val) {
 }
 function onsubmit(values) {
   loading.value = true;
-  if (Object.keys(props.details).length !== 0) {
-    productServices
-      .editProduct({
-        ...values,
-        images: images.value,
-        featured_image: featured_image.value,
-        videos: videos.value,
-        unit_id: "1",
-        is_featured: Boolean(values.is_featured)
-      })
-      .then((res) => {
-        emit("finish");
-      })
-      .finally(() => {
-        loading.value = false;
-      });
-  } else {
-    productServices
-      .createProduct({
-        ...values,
-        images: images.value,
-        featured_image: featured_image.value,
-        videos: videos.value,
-        unit_id: "1",
-        is_featured: BooleanO(values.is_featured)
-      })
-      .then((res) => {
-        emit("finish");
-      })
-      .finally(() => {
-        loading.value = false;
-      });
+  try {
+    if (Object.keys(props.details).length !== 0) {
+      productServices
+        .editProduct({
+          ...values,
+          images: images.value,
+          featured_image: featured_image.value,
+          videos: videos.value,
+          unit_id: "1",
+          is_featured: Boolean(values.is_featured),
+        })
+        .then((res) => {
+          emit("finish");
+        })
+        .finally(() => {
+          loading.value = false;
+        });
+    } else {
+      console.log("values => ", values);
+      productServices
+        .createProduct({
+          ...values,
+          images: images.value,
+          featured_image: featured_image.value,
+          videos: videos.value,
+          unit_id: "1",
+          is_featured: Boolean(values.is_featured),
+        })
+        .then((res) => {
+          emit("finish");
+        })
+        .finally(() => {
+          loading.value = false;
+        });
+    }
+  } catch (err) {
+    console.log(err.message);
   }
 }
 watch(

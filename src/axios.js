@@ -1,11 +1,9 @@
 import axios from 'axios'
-const baseUrl = import.meta.env.VITE_APP_API_URL
-
 import { error, success } from './plugins/toast'
 import routes from './router/index'
 export function api(header = {}) {
 	const apiClient = axios.create({
-		baseURL: baseUrl,
+		baseURL:import.meta.env.VITE_APP_API_URL,
 		// withCredentials: true,
 		headers: {
 			Authorization: localStorage.getItem('access_token')
