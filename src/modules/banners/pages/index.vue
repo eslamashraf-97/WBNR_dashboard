@@ -68,7 +68,7 @@
         <Avatar class="image-url" :image="data.imageUrl" :alt="data.imageUrl" />
       </template>
       <template v-slot:country_id="{ data }">
-        <span>{{ data?.country?.name ?? 'عامه' }}</span>
+        <span>{{ data?.country?.name_ar ?? 'عامه' }}</span>
       </template>
     </main-table>
   </Box>
