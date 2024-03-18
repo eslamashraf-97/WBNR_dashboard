@@ -10,17 +10,12 @@
     >
       <div>
         <ValidationForm @submit="onsubmit" :initialValues="details" v-slot="{ values }">
-          <InputField
-            type="text"
-            placeholder="اللينك"
-            name="path"
-          />
+          <InputField type="text" placeholder="اللينك" name="path" />
           <MainSelect
-            :options="countries"
+            :options="[{ id: null, name: 'عامه' }, ...countries]"
             name="country_id"
             optionLabel="name"
             optionValue="id"
-            validation="required"
             placeholder="اختر البلد"
           />
           <Upload
@@ -41,9 +36,7 @@
       </div>
     </Dialog>
     <div class="flex justify-between items-center border-b-2 pb-3 mb-4">
-      <h5 class="text-md mb-4">
-        عرض الصور
-      </h5>
+      <h5 class="text-md mb-4">عرض الصور</h5>
       <app-button
         v-if="$hasPer('products:create')"
         submit-title="إضف جديد"
@@ -69,7 +62,7 @@
         <Avatar class="image-url" :image="data.imageUrl" :alt="data.imageUrl" />
       </template>
       <template v-slot:country_id="{ data }">
-        <span>{{ data?.country?.name_ar ?? 'عامه' }}</span>
+        <span>{{ data?.country?.name_ar ?? "عامه" }}</span>
       </template>
     </main-table>
   </Box>
@@ -125,7 +118,7 @@ function onsubmit(data) {
   };
   console.log(payload);
   bannerServices.createBanner(payload).then((res) => {
-    visible.value = false; 
+    visible.value = false;
   });
 }
 const details = ref({});

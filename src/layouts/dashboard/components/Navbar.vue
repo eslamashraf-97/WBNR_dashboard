@@ -3,7 +3,7 @@
     class="bg-white fixed w-full z-10 top-0 shadow-nav flex justify-between items-center gap-2 py-2 px-10"
   >
     <div class="flex gap-2 w-100">
-      <img class="w-[180px]" src="@/assets/images/myr-logo.svg" alt="" />
+      <img class="w-[180px] " src="@/assets/images/myr-logo.svg" alt="" />
     </div>
     <div>
       <Button type="button" class="ml-6" @click="$router.push('/chat')">
